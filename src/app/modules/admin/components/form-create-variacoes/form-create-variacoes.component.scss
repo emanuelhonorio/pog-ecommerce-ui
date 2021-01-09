@@ -1,0 +1,12 @@
+.has-buttons {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-top: -1.34375em; /* fix for material input padding bottom */
+  }
+
+  .mat-form-field {
+    flex: 1;
+  }
+}

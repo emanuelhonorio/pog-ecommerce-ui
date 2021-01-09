@@ -1,0 +1,45 @@
+<!-- color="primary">
+  <button mat-icon-button (click)="toggle.emit(null)">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>SimpleCRM</h1>
+    <span class="menu-spacer"></span>
+  <div>
+    <a mat-button [routerLink]="'/accounts'"> Accounts </a>
+  </div>
+</mat-toolbar-->
+
+<div class="navbar">
+  <div class="container navbar-container">
+    <div class="navbar__left">
+      <button mat-icon-button (click)="toggle.emit(null)">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <img src="assets/logo.png" alt="Logo" class="logo" />
+    </div>
+
+    <div class="navbar__center">
+      <div class="search-container">
+        <input type="text" placeholder="Search..." />
+        <mat-icon>search</mat-icon>
+      </div>
+    </div>
+
+    <div class="navbar__right">
+      <button mat-icon-button>
+        <mat-icon matBadge="15" matBadgeColor="warn">shopping_cart</mat-icon>
+      </button>
+      <div class="avatar-container">
+        <button mat-icon-button>
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <div>
+          <p>Welcome</p>
+          <span>Sign in</span>
+          <span> | </span>
+          <span>Register</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

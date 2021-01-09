@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ecommerce-ui';
+  public myWorkRoutes = [
+    {
+      title: 'Home',
+      icon: 'home',
+      route: '/home'
+    }
+  ]
 }

@@ -1,0 +1,25 @@
+<div class="page">
+  <div class="container">
+    <header class="header">
+      <span>32 items found</span>
+      <div class="header__right">
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+          <mat-button-toggle value="left" aria-label="Text align left">
+            <mat-icon>menu</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="center" aria-label="Text align center">
+            <mat-icon>view_module</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </header>
+    <div class="projects" container>
+      <app-produto-card-a *ngFor="let product of products" [product]="product"></app-produto-card-a>
+    </div> 
+    <mat-paginator [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+</div>
+

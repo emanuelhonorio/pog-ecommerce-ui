@@ -1,0 +1,19 @@
+<div class="container">
+  <header>
+    <button mat-raised-button [color]="showFormProdutos ? 'basic': 'primary'" 
+      (click)="toggleFormProdutos()">{{showFormProdutos ? 'Esconder formulário' : 'Adicionar produto'}}</button>
+  </header>
+  
+  <mat-card class="mb-2" *ngIf="showFormProdutos">
+    <app-form-create-produtos (save)="onNewProduto($event)"></app-form-create-produtos>
+  </mat-card>
+
+  <app-table-produtos 
+    [produtos]="produtos" 
+    (delete)="handleDeleteProduto($event)" 
+    (edit)="handleEditProduto($event)"
+    (manageStock)="handleManageStock($event)"
+
+  ></app-table-produtos>
+</div>
+

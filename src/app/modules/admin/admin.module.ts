@@ -1,0 +1,55 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ManageCategoriasComponent } from './manage-categorias/manage-categorias.component';
+import { DialogCreateCategoriasComponent } from './components/dialog-create-categorias/dialog-create-categorias.component';
+import { AdminRoutingModule } from './admin.routing.module';
+import { TableProdutoEstoqueComponent } from './components/table-produto-estoque/table-produto-estoque.component';
+import { FormCreateVariacoesComponent } from './components/form-create-variacoes/form-create-variacoes.component';
+import { TableVariacoesComponent } from './components/table-variacoes/table-variacoes.component';
+
+import { MatTableModule } from '@angular/material/table';
+import { TableCategoriasComponent } from './components/table-categorias/table-categorias.component'; 
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ManageProdutosComponent } from './manage-produtos/manage-produtos.component';
+import { TableProdutosComponent } from './components/table-produtos/table-produtos.component';
+import { FormCreateProdutosComponent } from './components/form-create-produtos/form-create-produtos.component';
+import { MatCardModule } from '@angular/material/card'; 
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MultiSelectCategoriasComponent } from './components/multi-select-categorias/multi-select-categorias.component';
+import { ManageProdutosEstoqueComponent } from './manage-produtos-estoque/manage-produtos-estoque.component';
+import { ProdutoEstoqueFormComponent } from './components/produto-estoque-form/produto-estoque-form.component';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu'; 
+
+
+
+
+@NgModule({
+  declarations: [ManageCategoriasComponent, TableCategoriasComponent, DialogCreateCategoriasComponent, ManageProdutosComponent, TableProdutosComponent, FormCreateProdutosComponent, MultiSelectCategoriasComponent, ManageProdutosEstoqueComponent, ProdutoEstoqueFormComponent, TableProdutoEstoqueComponent, FormCreateVariacoesComponent, TableVariacoesComponent],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatCardModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatSelectModule,
+    MatProgressSpinnerModule
+  ]
+})
+export class AdminModule { }
