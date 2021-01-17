@@ -5,34 +5,48 @@ import { ManageCategoriasComponent } from './manage-categorias/manage-categorias
 import { DialogCreateCategoriasComponent } from './components/dialog-create-categorias/dialog-create-categorias.component';
 import { AdminRoutingModule } from './admin.routing.module';
 import { TableProdutoEstoqueComponent } from './components/table-produto-estoque/table-produto-estoque.component';
-import { FormCreateVariacoesComponent } from './components/form-create-variacoes/form-create-variacoes.component';
-import { TableVariacoesComponent } from './components/table-variacoes/table-variacoes.component';
 
 import { MatTableModule } from '@angular/material/table';
-import { TableCategoriasComponent } from './components/table-categorias/table-categorias.component'; 
+import { TableCategoriasComponent } from './components/table-categorias/table-categorias.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input'; 
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ManageProdutosComponent } from './manage-produtos/manage-produtos.component';
 import { TableProdutosComponent } from './components/table-produtos/table-produtos.component';
 import { FormCreateProdutosComponent } from './components/form-create-produtos/form-create-produtos.component';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MultiSelectCategoriasComponent } from './components/multi-select-categorias/multi-select-categorias.component';
 import { ManageProdutosEstoqueComponent } from './manage-produtos-estoque/manage-produtos-estoque.component';
 import { ProdutoEstoqueFormComponent } from './components/produto-estoque-form/produto-estoque-form.component';
-import { MatSelectModule } from '@angular/material/select'; 
+import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatMenuModule } from '@angular/material/menu'; 
-
-
-
+import { MatMenuModule } from '@angular/material/menu';
+import { FormCreateEstoquesComponent } from './components/form-create-estoques/form-create-estoques.component';
+import { TableEstoquesComponent } from './components/table-estoques/table-estoques.component';
+import { SaveProdutosComponent } from './pages/save-produtos/save-produtos.component';
+import { FotosFieldComponent } from './components/fotos-field/fotos-field.component';
 
 @NgModule({
-  declarations: [ManageCategoriasComponent, TableCategoriasComponent, DialogCreateCategoriasComponent, ManageProdutosComponent, TableProdutosComponent, FormCreateProdutosComponent, MultiSelectCategoriasComponent, ManageProdutosEstoqueComponent, ProdutoEstoqueFormComponent, TableProdutoEstoqueComponent, FormCreateVariacoesComponent, TableVariacoesComponent],
+  declarations: [
+    ManageCategoriasComponent,
+    TableCategoriasComponent,
+    DialogCreateCategoriasComponent,
+    ManageProdutosComponent,
+    TableProdutosComponent,
+    FormCreateProdutosComponent,
+    MultiSelectCategoriasComponent,
+    ManageProdutosEstoqueComponent,
+    ProdutoEstoqueFormComponent,
+    TableProdutoEstoqueComponent,
+    FormCreateEstoquesComponent,
+    TableEstoquesComponent,
+    SaveProdutosComponent,
+    FotosFieldComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -49,7 +63,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatAutocompleteModule,
     MatIconModule,
     MatSelectModule,
-    MatProgressSpinnerModule
-  ]
+    MatProgressSpinnerModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

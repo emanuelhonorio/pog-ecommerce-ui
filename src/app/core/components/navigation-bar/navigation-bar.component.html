@@ -15,19 +15,28 @@
       <button mat-icon-button (click)="toggle.emit(null)">
         <mat-icon>menu</mat-icon>
       </button>
-      <img src="assets/logo.png" alt="Logo" class="logo" />
+      <img src="assets/logo.png" alt="Logo" class="logo" routerLink="/" />
     </div>
 
     <div class="navbar__center">
-      <div class="search-container">
-        <input type="text" placeholder="Search..." />
-        <mat-icon>search</mat-icon>
-      </div>
+      <form (ngSubmit)="search()">
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search..."
+            name="searchValue"
+            [(ngModel)]="searchValue"
+          />
+          <mat-icon (click)="search()">search</mat-icon>
+        </div>
+      </form>
     </div>
 
     <div class="navbar__right">
-      <button mat-icon-button>
-        <mat-icon matBadge="15" matBadgeColor="warn">shopping_cart</mat-icon>
+      <button mat-icon-button routerLink="/carrinho">
+        <mat-icon [matBadge]="carrinhoSize" matBadgeColor="warn"
+          >shopping_cart</mat-icon
+        >
       </button>
       <div class="avatar-container">
         <button mat-icon-button>

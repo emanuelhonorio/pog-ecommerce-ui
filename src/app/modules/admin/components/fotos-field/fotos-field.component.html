@@ -1,0 +1,28 @@
+<div class="fotos-container">
+  <div *ngFor="let foto of fotos; index as i" class="foto">
+    <img [src]="foto" alt="Foto {{ i + 1 }}" />
+    <div class="foto-hover" (click)="remove(i)">Remove</div>
+  </div>
+  <button
+    type="button"
+    mat-button
+    color="primary"
+    *ngIf="!isAdding"
+    (click)="isAdding = !isAdding"
+  >
+    Adicionar foto
+  </button>
+</div>
+<form #form="ngForm" (submit)="addFoto(form)" *ngIf="isAdding">
+  <label class="mr-2">Image url:</label>
+  <input type="url" name="imageUrl" ngModel required />
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    class="ml-2"
+    [disabled]="form.invalid"
+  >
+    Adicionar
+  </button>
+</form>

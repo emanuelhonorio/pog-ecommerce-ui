@@ -1,18 +1,21 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { CorI, CreateVariacaoDTO, TamanhoI } from 'src/app/core/models/api-models';
+import {
+  CorI,
+  CreateEstoqueDTO,
+  TamanhoI,
+} from 'src/app/core/models/api-models';
 import { CoresService } from 'src/app/core/services/cores.service';
+import { EstoquesService } from 'src/app/core/services/estoques.service';
 import { TamanhosService } from 'src/app/core/services/tamanhos.service';
-import { VariacoesService } from 'src/app/core/services/variacoes.service';
 
 @Component({
-  selector: 'app-form-create-variacoes',
-  templateUrl: './form-create-variacoes.component.html',
-  styleUrls: ['./form-create-variacoes.component.scss']
+  selector: 'app-form-create-estoques',
+  templateUrl: './form-create-estoques.component.html',
+  styleUrls: ['./form-create-estoques.component.scss'],
 })
-export class FormCreateVariacoesComponent implements OnInit {
-
+export class FormCreateEstoquesComponent implements OnInit {
   @Input()
   produtoId: number;
 
@@ -23,19 +26,19 @@ export class FormCreateVariacoesComponent implements OnInit {
   tamanhos: TamanhoI[] = [];
 
   @Input()
-  variacao: any;
+  estoque: any;
 
   @Output()
   save = new EventEmitter();
 
   loading = false;
 
-  variacaoForm = this.fb.group({
+  estoqueForm = this.fb.group({
     cor: [null],
     tamanho: [null],
     qtdEstoque: [0, [Validators.required, Validators.min(0)]],
     acrescimoValor: [0, [Validators.required, Validators.min(0)]],
-  })
+  });
 
   corCtrl = this.fb.control('', [Validators.required]);
   tamanhoCtrl = this.fb.control('', [Validators.required]);
@@ -43,22 +46,22 @@ export class FormCreateVariacoesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private variacoesService: VariacoesService,
+    private estoqueService: EstoquesService,
     private coresService: CoresService,
     private tamanhosService: TamanhosService
-    ) { }
+  ) {}
 
   ngOnInit(): void {
     //this.loadCores();
     //this.loadTamanhos();
-    if (this.variacao) {
+    if (this.estoque) {
       const values = {
-        cor: this.variacao.cor.id,
-        tamanho: this.variacao.tamanho.id,
-        qtdEstoque: this.variacao.qtdEstoque,
-        acrescimoValor: this.variacao.acrescimoValor,
-      }
-      this.variacaoForm.setValue(values)
+        cor: this.estoque.cor.id,
+        tamanho: this.estoque.tamanho.id,
+        qtdEstoque: this.estoque.qtdEstoque,
+        acrescimoValor: this.estoque.acrescimoValor,
+      };
+      this.estoqueForm.setValue(values);
     }
   }
 
@@ -81,35 +84,35 @@ export class FormCreateVariacoesComponent implements OnInit {
   async onSubmit(form: FormGroupDirective) {
     // disable form
     this.loading = true;
-    this.variacaoForm.disable();
+    this.estoqueForm.disable();
 
-    // create variacao
-    const variacaoDTO: CreateVariacaoDTO = {
+    // create estoque
+    const estoqueDTO: CreateEstoqueDTO = {
       produtoId: this.produtoId,
-      corId: this.variacaoForm.get('cor').value,
-      tamanhoId: this.variacaoForm.get('tamanho').value,
-      qtdEstoque: this.variacaoForm.get('qtdEstoque').value,
-      acrescimoValor: this.variacaoForm.get('acrescimoValor').value,
-    }
-    if (this.variacao) {
-      await this.variacoesService.update(this.variacao.id, variacaoDTO);
+      corId: this.estoqueForm.get('cor').value,
+      tamanhoId: this.estoqueForm.get('tamanho').value,
+      qtdEstoque: this.estoqueForm.get('qtdEstoque').value,
+      acrescimoValor: this.estoqueForm.get('acrescimoValor').value,
+    };
+    if (this.estoque) {
+      await this.estoqueService.update(this.estoque.id, estoqueDTO);
     } else {
-      await this.variacoesService.create(variacaoDTO);
+      await this.estoqueService.create(estoqueDTO);
     }
 
     // reset form
     form.resetForm();
-    this.variacaoForm.reset();
-    this.variacaoForm.enable();
+    this.estoqueForm.reset();
+    this.estoqueForm.enable();
     this.loading = false;
-    this.save.emit(this.variacaoForm.value);
+    this.save.emit(this.estoqueForm.value);
   }
 
   async createTamanho() {
     // disable field
     this.tamanhoCtrl.disable();
 
-    const tamanho: TamanhoI = { nome: this.tamanhoCtrl.value }
+    const tamanho: TamanhoI = { nome: this.tamanhoCtrl.value };
     await this.tamanhosService.create(this.produtoId, tamanho);
     await this.loadTamanhos();
 
@@ -122,7 +125,7 @@ export class FormCreateVariacoesComponent implements OnInit {
     // disable field
     this.corCtrl.disable();
 
-    const cor: CorI = { nome: this.corCtrl.value}
+    const cor: CorI = { nome: this.corCtrl.value };
     await this.coresService.create(this.produtoId, cor);
     await this.loadCores();
 
@@ -131,10 +134,9 @@ export class FormCreateVariacoesComponent implements OnInit {
     this.corCtrl.enable();
   }
 
-
   openDialog(templateRef) {
     this.dialog.open(templateRef, {
-         width: '250px',
+      width: '250px',
     });
   }
 }

@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { EstoquesService } from 'src/app/core/services/estoques.service';
 import { ProdutosService } from 'src/app/core/services/produtos.service';
-import { VariacoesService } from 'src/app/core/services/variacoes.service';
 
 @Component({
   selector: 'app-manage-produtos-estoque',
   templateUrl: './manage-produtos-estoque.component.html',
-  styleUrls: ['./manage-produtos-estoque.component.scss']
+  styleUrls: ['./manage-produtos-estoque.component.scss'],
 })
 export class ManageProdutosEstoqueComponent implements OnInit {
   produtoId: number;
   produto: any = {};
-  variacao: any; // in case is updating
+  estoque: any; // in case is updating
 
   constructor(
     private ps: ProdutosService,
-    private variacoesService: VariacoesService,
+    private estoquesService: EstoquesService,
     private dialog: MatDialog,
     private route: ActivatedRoute
-    ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.produtoId = Number(this.route.snapshot.paramMap.get('produtoId'))
+    this.produtoId = Number(this.route.snapshot.paramMap.get('produtoId'));
     this.loadProduto();
   }
 
@@ -41,20 +41,19 @@ export class ManageProdutosEstoqueComponent implements OnInit {
   }
 
   async handleDeleteEstoque(event) {
-    await this.variacoesService.delete(event);
+    await this.estoquesService.delete(event);
     this.loadProduto();
   }
 
   handleEditEstoque(event, templateRef) {
-    this.variacao = this.produto.variacoes.find(v => v.id === event);
+    this.estoque = this.produto.estoques.find((e) => e.id === event);
 
     let dialogRef = this.dialog.open(templateRef, {
       width: '700px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.variacao = null;
+    dialogRef.afterClosed().subscribe((result) => {
+      this.estoque = null;
     });
   }
-
 }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableVariacoesComponent } from './table-variacoes.component';
+import { FotosFieldComponent } from './fotos-field.component';
 
-describe('TableVariacoesComponent', () => {
-  let component: TableVariacoesComponent;
-  let fixture: ComponentFixture<TableVariacoesComponent>;
+describe('FotosFieldComponent', () => {
+  let component: FotosFieldComponent;
+  let fixture: ComponentFixture<FotosFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableVariacoesComponent ]
+      declarations: [ FotosFieldComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableVariacoesComponent);
+    fixture = TestBed.createComponent(FotosFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

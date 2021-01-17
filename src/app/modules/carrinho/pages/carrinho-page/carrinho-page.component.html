@@ -1,0 +1,54 @@
+<div class="container mt-5">
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Valor</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of carrinho.items">
+        <td class="td-produto">
+          <img [src]="item.produto.fotos[0].imageUrl" />
+          <div class="td-produto__details">
+            <p class="td-produto__title">{{ item.produto.descricao }}</p>
+            <small
+              >Tamanho: {{ item.tamanhoEscolhido.nome }}, Cor:
+              {{ item.corEscolhida.nome }}, Marca:
+              {{ item.produto.marca }}</small
+            >
+          </div>
+        </td>
+
+        <td class="td-quantidade">
+          <div class="quantidade-wrap">
+            <button mat-icon-button (click)="incAmmount(item.id)">
+              <mat-icon color="primary">add</mat-icon>
+            </button>
+            {{ item.quantidade }}
+            <button mat-icon-button>
+              <mat-icon color="primary" (click)="decAmmount(item.id)"
+                >remove</mat-icon
+              >
+            </button>
+          </div>
+        </td>
+
+        <td class="td-valor">
+          <strong class="td-valor__subtotal">${{ item.subTotal }}</strong>
+          <small class="td-valor__cada"
+            >{{ item.produto.valorBaseFormatado }} cada</small
+          >
+        </td>
+
+        <td>
+          <button mat-icon-button color="warn" (click)="removeItem(item.id)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

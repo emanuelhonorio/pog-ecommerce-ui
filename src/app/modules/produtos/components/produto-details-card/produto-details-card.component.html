@@ -1,0 +1,110 @@
+<div class="row component">
+  <div class="col-lg-6 component__left">
+    <div class="big-image">
+      <img [src]="produto.fotos[selectedFotoIdx]?.imageUrl" alt="" />
+    </div>
+
+    <div class="small-images-container">
+      <div
+        *ngFor="let foto of produto.fotos; index as i"
+        class="small-image"
+        [ngClass]="{ selectedFoto: i === selectedFotoIdx }"
+        (click)="selectedFotoIdx = i"
+      >
+        <img [src]="foto.imageUrl" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 component__right">
+    <h2 class="product__title">{{ produto.nome }}</h2>
+    <p class="product__orders">
+      <mat-icon color="primary">shopping_bag</mat-icon> 154 orders
+    </p>
+    <p class="product__price">{{ produto.valorBaseFormatado }}</p>
+    <p class="product__description mt-2">
+      {{ produto.descricao }}
+    </p>
+    <dl class="row mt-2">
+      <ng-template [ngIf]="produto.modelo">
+        <dt class="col-sm-3">Modelo</dt>
+        <dd class="col-sm-9">{{ produto.modelo }}</dd>
+      </ng-template>
+      <ng-template [ngIf]="produto.corUnica">
+        <dt class="col-sm-3">Cor</dt>
+        <dd class="col-sm-9">{{ produto.corUnica?.nome }}</dd>
+      </ng-template>
+      <ng-template [ngIf]="produto.tamanhoUnico">
+        <dt class="col-sm-3">Tamanho</dt>
+        <dd class="col-sm-9">{{ produto.tamanhoUnico?.nome }}</dd>
+      </ng-template>
+      <ng-template [ngIf]="produto.marca">
+        <dt class="col-sm-3">Marca</dt>
+        <dd class="col-sm-9">{{ produto.marca }}</dd>
+      </ng-template>
+      <ng-template [ngIf]="produto.peso">
+        <dt class="col-sm-3">Peso</dt>
+        <dd class="col-sm-9">{{ produto.peso }} gramas</dd>
+      </ng-template>
+    </dl>
+
+    <form #form="ngForm" class="row mt-auto">
+      <mat-form-field appearence="outline" class="col-sm-5">
+        <input
+          matInput
+          type="number"
+          id="quantidade"
+          placeholder="Quantidade..."
+          [(ngModel)]="quantidade"
+          name="quantidade"
+          required
+          [min]="1"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-sm-10" *ngIf="!produto.corUnica">
+        <mat-label>Cor</mat-label>
+        <mat-select [(ngModel)]="corEscolhida" name="corEscolhida" required>
+          <mat-option *ngFor="let cor of produto.cores" [value]="cor"
+            >{{ cor.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-sm-10" *ngIf="!produto.tamanhoUnico">
+        <mat-label>Tamanho</mat-label>
+        <mat-select
+          [(ngModel)]="tamanhoEscolhido"
+          name="tamanhoEscolhido"
+          required
+        >
+          <mat-option *ngFor="let tamanho of produto.tamanhos" [value]="tamanho"
+            >{{ tamanho.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div class="row mt-4">
+      <div class="col-12">
+        <button
+          mat-flat-button
+          color="primary"
+          class="mr-2"
+          (click)="comprarAgora()"
+          [disabled]="form.invalid"
+        >
+          Comprar agora
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="addItemAoCarrinho()"
+          [disabled]="form.invalid"
+        >
+          Adicionar ao carrinho
+          <mat-icon color="primary" style="font-size: 20px"
+            >shopping_cart</mat-icon
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

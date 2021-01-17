@@ -1,5 +1,5 @@
-<form #formDir="ngForm" [formGroup]="variacaoForm" (ngSubmit)="onSubmit(formDir)">
-  <h1 (click)="log(variacaoForm.value)">Estoque</h1>
+<form #formDir="ngForm" [formGroup]="estoqueForm" (ngSubmit)="onSubmit(formDir)">
+  <h1>Estoque</h1>
 
 
   <!-- Field de Cor -->
@@ -9,13 +9,13 @@
         <mat-label>Escolha uma cor</mat-label>
         <mat-select formControlName="cor">
           <mat-option>Nenhuma</mat-option>
-          <mat-option *ngFor="let cor of cores" [value]="cor.id" >{{ cor.nome }}</mat-option>
+          <mat-option *ngFor="let cor of cores" [value]="cor.id">{{ cor.nome }}</mat-option>
         </mat-select>
       </mat-form-field>
       <button mat-icon-button color="primary" type="button" [disabled]="loading" (click)="openDialog(dialogCor)">
         <mat-icon color="primary">add</mat-icon>
       </button>
-   </div>
+    </div>
   </div>
 
   <!-- Field de Tamanho -->
@@ -25,7 +25,7 @@
         <mat-label>Escolha um tamanho</mat-label>
         <mat-select formControlName="tamanho">
           <mat-option>Nenhum</mat-option>
-          <mat-option *ngFor="let tamanho of tamanhos" [value]="tamanho.id" >{{ tamanho.nome }}</mat-option>
+          <mat-option *ngFor="let tamanho of tamanhos" [value]="tamanho.id">{{ tamanho.nome }}</mat-option>
         </mat-select>
       </mat-form-field>
       <button mat-icon-button color="primary" type="button" [disabled]="loading" (click)="openDialog(dialogTamanho)">
@@ -55,34 +55,34 @@
   </div>
 
   <!-- Field de Fotos>
-  <h2 class="mt-2">Fotos do produto</h2>
-
-  <div formArrayName="fotos">
-    <div class="row" *ngFor="let foto of fotos.controls; let i = index;">
-      <div class="col-12 has-buttons">
-        <mat-form-field appearance="outline">
-          <mat-label>Image url</mat-label>
-          <input matInput type="url" [formControlName]="i">
-        </mat-form-field>
-        <button mat-icon-button color="warn" (click)="deleteFoto(i)" type="button" [disabled]="loading">
-          <mat-icon color="warn">delete</mat-icon>
-        </button>
+    <h2 class="mt-2">Fotos do produto</h2>
+  
+    <div formArrayName="fotos">
+      <div class="row" *ngFor="let foto of fotos.controls; let i = index;">
+        <div class="col-12 has-buttons">
+          <mat-form-field appearance="outline">
+            <mat-label>Image url</mat-label>
+            <input matInput type="url" [formControlName]="i">
+          </mat-form-field>
+          <button mat-icon-button color="warn" (click)="deleteFoto(i)" type="button" [disabled]="loading">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
       </div>
-    </div>
-
-    <button mat-button color="primary" (click)="addFoto()" type="button" [disabled]="loading">
-      <mat-icon color="primary">add</mat-icon>
-      Add Foto
-    </button>
-  </div -->
+  
+      <button mat-button color="primary" (click)="addFoto()" type="button" [disabled]="loading">
+        <mat-icon color="primary">add</mat-icon>
+        Add Foto
+      </button>
+    </div -->
 
 
   <div class="mt-5">
-    <button mat-raised-button color="primary" type="submit" [disabled]="variacaoForm.invalid || loading">
+    <button mat-raised-button color="primary" type="submit" [disabled]="estoqueForm.invalid || loading">
       {{ loading ? 'Salvando...' : 'Salvar' }}
     </button>
   </div>
-  
+
 </form>
 
 <ng-template #dialogCor>
@@ -96,7 +96,8 @@
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Fechar</button>
-    <button mat-button [mat-dialog-close]="true" [disabled]="corCtrl.invalid || loading" (click)="createCor()">Criar</button>
+    <button mat-button [mat-dialog-close]="true" [disabled]="corCtrl.invalid || loading"
+      (click)="createCor()">Criar</button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -111,6 +112,7 @@
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Fechar</button>
-    <button mat-button [mat-dialog-close]="true" [disabled]="tamanhoCtrl.invalid || loading" (click)="createTamanho()">Criar</button>
+    <button mat-button [mat-dialog-close]="true" [disabled]="tamanhoCtrl.invalid || loading"
+      (click)="createTamanho()">Criar</button>
   </mat-dialog-actions>
 </ng-template>

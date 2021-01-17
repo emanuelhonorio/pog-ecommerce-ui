@@ -1,0 +1,63 @@
+table {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 20px;
+
+  width: 100%;
+
+  th {
+    padding: 10px;
+    padding-left: 0;
+    text-align: left;
+    color: #969696;
+  }
+}
+
+.td-produto {
+  display: flex;
+
+  img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  &__title {
+    color: black;
+    margin-bottom: 5px;
+    font-size: 15px;
+  }
+
+  &__details {
+    padding: 0 10px;
+
+    small {
+      color: rgb(150, 150, 150);
+      font-size: 12px;
+    }
+  }
+}
+
+.td-quantidade {
+  .quantidade-wrap {
+    display: flex;
+    align-items: center;
+
+    mat-icon {
+      font-size: 16px;
+    }
+  }
+}
+
+.td-valor {
+  strong {
+    display: block;
+    font-size: 15px;
+  }
+
+  small {
+    color: rgb(150, 150, 150);
+    font-size: 12px;
+  }
+}

@@ -14,18 +14,18 @@
     <button mat-raised-button color="primary" (click)="openDialog(dialogEstoque)">Criar estoque</button>
   </div>
   <div class="mb-5">
-    <app-table-variacoes [produto]="produto" (delete)="handleDeleteEstoque($event)" (edit)="handleEditEstoque($event, dialogEstoque)"></app-table-variacoes>
+    <app-table-estoques [produto]="produto" (delete)="handleDeleteEstoque($event)" (edit)="handleEditEstoque($event, dialogEstoque)"></app-table-estoques>
   </div>
 </div>
 
 <ng-template #dialogEstoque>
   <h2 mat-dialog-title>Adicionar estoque</h2>
   <mat-dialog-content class="mat-typography">
-    <app-form-create-variacoes
+    <app-form-create-estoques
       [produtoId]="produtoId" 
       [cores]="produto.cores" 
       [tamanhos]="produto.tamanhos"
-      [variacao]="variacao"
-      (save)="onSaveProdutoEstoque($event)"></app-form-create-variacoes>
+      [estoque]="estoque"
+      (save)="onSaveProdutoEstoque($event)"></app-form-create-estoques>
   </mat-dialog-content>
 </ng-template>

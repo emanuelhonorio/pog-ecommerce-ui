@@ -1,0 +1,43 @@
+<mat-accordion multi>
+  <!-- Categorias -->
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Categorias
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <div *ngFor="let c of categorias">
+      <mat-checkbox color="primary" (change)="handleCategoriaSelected(c.id)" [checked]="categoriasChecked[c.id] ? true : false">
+        {{c.nome}}
+      </mat-checkbox>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- Valor -->
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Preço
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <mat-slider color="primary" class="w-100" name="valorAte" [(ngModel)]="valorAte" max="500"></mat-slider>
+    </div>
+    <div class="row">
+      <!-- Valor De (Min) -->
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput type="number" placeholder="Min (R$)" name="valorDe" [(ngModel)]="valorDe">
+        </mat-form-field>
+      </div>
+      <!-- Valor Até (Max)-->
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput type="number" placeholder="Max (R$)" name="valorAte" [(ngModel)]="valorAte">
+        </mat-form-field>
+      </div>
+    </div>
+    <button mat-flat-button color="primary" class="w-100" (click)="handleAplicarFiltroValor()">Aplicar</button>
+  </mat-expansion-panel>
+</mat-accordion>

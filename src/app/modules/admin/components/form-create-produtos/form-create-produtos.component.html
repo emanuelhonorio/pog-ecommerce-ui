@@ -1,13 +1,20 @@
-
-<form #formDir="ngForm" [formGroup]="produtoForm" (ngSubmit)="createProduto(formDir)">
-  <h1 class="mb-4">Criar novo produto</h1>
-
+<form
+  #formDir="ngForm"
+  [formGroup]="produtoForm"
+  (ngSubmit)="createProduto(formDir)"
+>
   <div class="row">
     <div class="col-md-12">
       <mat-form-field appearance="outline">
         <mat-label>Nome</mat-label>
-        <input matInput placeholder="Escolha um nome..." formControlName="nome">
-        <mat-error *ngIf="produtoForm.get('nome').errors">{{getErrorMessage('nome')}}</mat-error>
+        <input
+          matInput
+          placeholder="Escolha um nome..."
+          formControlName="nome"
+        />
+        <mat-error *ngIf="produtoForm.get('nome').errors">{{
+          getErrorMessage("nome")
+        }}</mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -16,9 +23,17 @@
     <div class="col-md-12">
       <mat-form-field appearance="outline">
         <mat-label>Descricão</mat-label>
-        <textarea matInput placeholder="Escreva uma descrição para o produto..." formControlName="descricao">></textarea>
-        <mat-error *ngIf="produtoForm.get('descricao').errors">{{getErrorMessage('descricao')}}</mat-error>
-      </mat-form-field>  
+        <textarea
+          matInput
+          placeholder="Escreva uma descrição para o produto..."
+          formControlName="descricao"
+        >
+></textarea
+        >
+        <mat-error *ngIf="produtoForm.get('descricao').errors">{{
+          getErrorMessage("descricao")
+        }}</mat-error>
+      </mat-form-field>
     </div>
   </div>
 
@@ -26,16 +41,20 @@
     <div class="col-md-5">
       <mat-form-field appearance="outline">
         <mat-label>Marca</mat-label>
-        <input matInput placeholder="Marca..." formControlName="marca">
-        <mat-error *ngIf="produtoForm.get('marca').errors">{{getErrorMessage('marca')}}</mat-error>
+        <input matInput placeholder="Marca..." formControlName="marca" />
+        <mat-error *ngIf="produtoForm.get('marca').errors">{{
+          getErrorMessage("marca")
+        }}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-5">
       <mat-form-field appearance="outline">
         <mat-label>Modelo</mat-label>
-        <input matInput placeholder="Modelo..." formControlName="modelo">
-        <mat-error *ngIf="produtoForm.get('modelo').errors">{{getErrorMessage('modelo')}}</mat-error>
+        <input matInput placeholder="Modelo..." formControlName="modelo" />
+        <mat-error *ngIf="produtoForm.get('modelo').errors">{{
+          getErrorMessage("modelo")
+        }}</mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -44,36 +63,61 @@
     <div class="col-md-3">
       <mat-form-field appearance="outline">
         <mat-label>Peso</mat-label>
-        <input matInput placeholder="Peso..." formControlName="peso">
-        <mat-error *ngIf="produtoForm.get('peso').errors">{{getErrorMessage('peso')}}</mat-error>
+        <input matInput placeholder="Peso..." formControlName="peso" />
+        <mat-error *ngIf="produtoForm.get('peso').errors">{{
+          getErrorMessage("peso")
+        }}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-3">
       <mat-form-field appearance="outline">
         <mat-label>Valor Base</mat-label>
-        <input matInput placeholder="Valor base..." formControlName="valorBase">
-        <mat-error *ngIf="produtoForm.get('valorBase').errors">{{getErrorMessage('valorBase')}}</mat-error>
+        <input
+          matInput
+          placeholder="Valor base..."
+          formControlName="valorBase"
+        />
+        <mat-error *ngIf="produtoForm.get('valorBase').errors">{{
+          getErrorMessage("valorBase")
+        }}</mat-error>
       </mat-form-field>
     </div>
   </div>
-  
 
   <div class="row">
     <div class="col-md-6">
       <mat-form-field appearance="outline">
         <mat-label>Categorias</mat-label>
         <mat-select formControlName="categorias" multiple>
-          <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</mat-option>
+          <mat-option
+            *ngFor="let categoria of categorias"
+            [value]="categoria.id"
+            >{{ categoria.nome }}</mat-option
+          >
         </mat-select>
-        <mat-error *ngIf="produtoForm.get('categorias').errors">{{getErrorMessage('categorias')}}</mat-error>
-      </mat-form-field>      
+        <mat-error *ngIf="produtoForm.get('categorias').errors">{{
+          getErrorMessage("categorias")
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h3>Fotos</h3>
+      <app-fotos-field formControlName="fotos" required></app-fotos-field>
     </div>
   </div>
 
   <div class="mt-4">
-    <button mat-raised-button color="primary" type="submit" [disabled]="produtoForm.invalid || loading">
-      {{ loading ? 'Criando produto...' : 'Criar produto' }}
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="produtoForm.invalid || loading"
+    >
+      {{ loading ? "Salvando produto..." : "Salvar produto" }}
     </button>
   </div>
 </form>

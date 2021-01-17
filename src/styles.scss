@@ -19,13 +19,21 @@ body {
 body {
   margin: 0;
   font-size: 15px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, "Hewlvetica Neue", sans-serif;
 }
 
 .container {
   max-width: 1400px;
   padding: 0 20px;
   margin: 0 auto;
+}
+
+table {
+  width: 100%;
+}
+
+td, th {
+  padding-right: 5px!important;
 }
 
 .mat-icon {

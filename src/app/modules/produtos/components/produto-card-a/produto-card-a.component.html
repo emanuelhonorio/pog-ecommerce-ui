@@ -1,12 +1,32 @@
-<div class="product">
-    <div class="product__top">
-        <img [src]="product.image" alt="#">
+<div class="product" [ngClass]="{ indisponivel: !produto?.disponivel }">
+  <div class="product__top" [routerLink]="['produtos', produto.id, 'detalhes']">
+    <img [src]="produto?.fotos[0]?.imageUrl || defaultImage" alt="#" />
+  </div>
+  <div class="product__bottom">
+    <p
+      class="product__title"
+      [routerLink]="['produtos', produto.id, 'detalhes']"
+    >
+      {{ produto?.nome }}
+    </p>
+
+    <p class="product__price">
+      {{
+        produto?.valorBase?.toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL"
+        })
+      }}
+    </p>
+    <div class="product__button">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!produto?.disponivel"
+        [routerLink]="['produtos', produto.id, 'detalhes']"
+      >
+        {{ produto?.disponivel ? "Adicionar ao carrinho" : "Indisponível" }}
+      </button>
     </div>
-    <div class="product__bottom">
-        <p class="product__title">{{ product.title }}</p>
-        <p class="product__price">{{ product.price }}</p>
-        <div class="product__button">
-            <button mat-flat-button color="primary">Add to cart</button>
-        </div>
-    </div>
+  </div>
 </div>

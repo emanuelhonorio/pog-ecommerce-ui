@@ -10,21 +10,21 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { ProdutosModule } from './modules/produtos/produtos.module';
 import { CategoriasModule } from './modules/categorias/categorias.module';
+import { CarrinhoModule } from './modules/carrinho/carrinho.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
+    ProdutosModule,
     CategoriasModule,
-    ProdutosModule
+    CarrinhoModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

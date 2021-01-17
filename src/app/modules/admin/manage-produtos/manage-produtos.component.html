@@ -1,12 +1,20 @@
-<div class="container">
+<div class="container mt-5">
   <header>
-    <button mat-raised-button [color]="showFormProdutos ? 'basic': 'primary'" 
-      (click)="toggleFormProdutos()">{{showFormProdutos ? 'Esconder formulário' : 'Adicionar produto'}}</button>
+   <form (input)="onFormInput($event)">
+
+    <mat-form-field class="nome">
+      <mat-label>Filtrar por nome</mat-label>
+      <input matInput type="text" [(ngModel)]="produtoFilter.nome" name="nome">
+      <button mat-button *ngIf="produtoFilter.nome" matSuffix mat-icon-button aria-label="Clear" (click)="clearField('nome')">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matSuffix *ngIf="!produtoFilter.nome">search</mat-icon>
+    </mat-form-field>
+    
+   </form>
+    
+    <button mat-raised-button color="primary" routerLink="/admin/produtos/create">Adicionar produto</button>
   </header>
-  
-  <mat-card class="mb-2" *ngIf="showFormProdutos">
-    <app-form-create-produtos (save)="onNewProduto($event)"></app-form-create-produtos>
-  </mat-card>
 
   <app-table-produtos 
     [produtos]="produtos" 

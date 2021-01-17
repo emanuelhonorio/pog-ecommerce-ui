@@ -28,10 +28,18 @@ export interface CreateProdutoDTO {
   fotos?: string[];
 }
 
-export interface CreateVariacaoDTO {
+export interface CreateEstoqueDTO {
   produtoId?: number;
   tamanhoId?: number;
   corId?: number;
   qtdEstoque?: number;
   acrescimoValor?: number;
+}
+
+export interface ProdutoFilter {
+  nome?: string;
+  marca?: string;
+  categorias?: number[];
+  valorDe?: number;
+  valorAte?: number;
 }

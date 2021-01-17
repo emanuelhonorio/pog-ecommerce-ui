@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 
@@ -14,7 +15,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 
-
 const materialComponents = [
   MatBadgeModule,
   MatIconModule,
@@ -24,19 +24,17 @@ const materialComponents = [
   MatSidenavModule,
   MatListModule,
   MatButtonToggleModule,
-]
+];
 
 @NgModule({
   declarations: [NavigationBarComponent],
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     HttpClientModule,
-    ...materialComponents
+    ...materialComponents,
   ],
-  exports: [
-    NavigationBarComponent,
-    ...materialComponents
-  ]
+  exports: [NavigationBarComponent, ...materialComponents],
 })
-export class CoreModule { }
+export class CoreModule {}
