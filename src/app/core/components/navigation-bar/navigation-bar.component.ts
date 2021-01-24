@@ -6,7 +6,9 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CarrinhoService } from '../../services/carrinho.service';
+import { Usuario } from '../../models/api-models';
+import { AuthService } from '../../services/auth.service';
+import { Carrinho, CarrinhoService } from '../../services/carrinho.service';
 import { ProdutoFilterStoreService } from '../../services/produto-filter-store.service';
 
 @Component({
@@ -23,19 +25,45 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   carrinho$: Subscription;
   carrinhoSize: number;
 
+  user: Usuario = null;
+
+  authContext$: Subscription;
+
+  produtoFilter$: Subscription;
+
   constructor(
     private produtoFilterStore: ProdutoFilterStoreService,
-    private carrinhoService: CarrinhoService
+    private carrinhoService: CarrinhoService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.carrinho$ = this.carrinhoService.carrinho$.subscribe((carrinho) => {
-      this.carrinhoSize = carrinho.items.length;
-    });
+    this.carrinho$ = this.carrinhoService.carrinho$.subscribe(
+      (carrinho: Carrinho) => {
+        if (carrinho?.items) {
+          this.carrinhoSize = carrinho.items.length;
+        }
+      }
+    );
+
+    this.authContext$ = this.authService.userObservable.subscribe(
+      (user: Usuario) => {
+        this.user = user;
+        console.log('obs user', user);
+      }
+    );
+
+    this.produtoFilter$ = this.produtoFilterStore.produtoFilter$.subscribe(
+      (filter) => {
+        this.searchValue = filter?.nome;
+      }
+    );
   }
 
   ngOnDestroy() {
     if (this.carrinho$) this.carrinho$.unsubscribe();
+    if (this.authContext$) this.authContext$.unsubscribe();
+    if (this.produtoFilter$) this.produtoFilter$.unsubscribe();
   }
 
   search() {
@@ -43,5 +71,9 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
       ...this.produtoFilterStore.produtoFilter,
       nome: this.searchValue,
     };
+  }
+
+  logout() {
+    this.authService.logoutAndRedirect();
   }
 }

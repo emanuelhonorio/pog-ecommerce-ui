@@ -1,0 +1,54 @@
+<div class="container mt-5">
+  <div class="col-lg-6 col-md-6 m-auto">
+    <h1>Entre na sua conta</h1>
+    <mat-card class="card">
+      <p style="color: red">{{ error }}</p>
+
+      <form #form="ngForm" [formGroup]="formG" (ngSubmit)="signin(form)">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="pog@example.com"
+            name="email"
+            formControlName="email"
+          />
+          <mat-error *ngIf="formG.get('email').invalid">{{
+            getErrorMessage("email")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input
+            type="password"
+            name="senha"
+            matInput
+            placeholder="******"
+            formControlName="senha"
+          />
+          <mat-error *ngIf="formG.get('senha').invalid">{{
+            getErrorMessage("senha")
+          }}</mat-error>
+        </mat-form-field>
+
+        <div class="mt-4">
+          <button
+            type="submit"
+            mat-flat-button
+            class="w-100 py-2"
+            color="primary"
+            [disabled]="formG.invalid || loading"
+          >
+            {{ loading ? "Entrando...." : "Entrar" }}
+          </button>
+        </div>
+      </form>
+    </mat-card>
+
+    <p class="text-center mt-4">
+      Não possui uma conta?
+      <a href="javascript:;" routerLink="/cadastrar">Cadastrar-se</a>
+    </p>
+  </div>
+</div>

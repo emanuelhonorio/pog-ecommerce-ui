@@ -1,31 +1,45 @@
 <div class="container mt-5">
   <mat-card class="mb-5">
     <span>Produto:</span>
-    <p>{{produto.nome}}</p>
+    <p>{{ produto.nome }}</p>
     <span>Descricao:</span>
-    <p>{{produto.decricao}}</p>
+    <p>{{ produto.decricao }}</p>
     <span>Categorias:</span>
     <mat-chip-list>
-      <mat-chip *ngFor="let categoria of produto.categorias">{{categoria.nome}}</mat-chip>
+      <mat-chip *ngFor="let categoria of produto.categorias">{{
+        categoria.nome
+      }}</mat-chip>
     </mat-chip-list>
-    
   </mat-card>
-  <div class="mb-2" style="display: flex; justify-content: flex-end;">
-    <button mat-raised-button color="primary" (click)="openDialog(dialogEstoque)">Criar estoque</button>
+  <div class="mb-2" style="display: flex; justify-content: flex-end">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openDialogCreateEstoque(dialogEstoque)"
+    >
+      Criar estoque
+    </button>
   </div>
   <div class="mb-5">
-    <app-table-estoques [produto]="produto" (delete)="handleDeleteEstoque($event)" (edit)="handleEditEstoque($event, dialogEstoque)"></app-table-estoques>
+    <app-table-estoques
+      [produto]="produto"
+      (delete)="handleDeleteEstoque($event)"
+      (edit)="openDialogEditEstoque($event, dialogEstoque)"
+    ></app-table-estoques>
   </div>
 </div>
 
 <ng-template #dialogEstoque>
-  <h2 mat-dialog-title>Adicionar estoque</h2>
+  <h2 mat-dialog-title>
+    {{ estoque?.id ? "Atualizar Estoque" : "Adicionar Estoque" }}
+  </h2>
   <mat-dialog-content class="mat-typography">
     <app-form-create-estoques
-      [produtoId]="produtoId" 
-      [cores]="produto.cores" 
-      [tamanhos]="produto.tamanhos"
+      [produtoId]="produtoId"
       [estoque]="estoque"
-      (save)="onSaveProdutoEstoque($event)"></app-form-create-estoques>
+      (create)="handleSaveEstoque($event)"
+      (update)="handleSaveEstoque($event, true)"
+      [loading]="estoqueSavingLoading"
+    ></app-form-create-estoques>
   </mat-dialog-content>
 </ng-template>

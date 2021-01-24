@@ -1,8 +1,7 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
-import { CategoriaI } from 'src/app/core/models/api-models';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Categoria, Produto } from 'src/app/core/models/api-models';
 import { CategoriasService } from 'src/app/core/services/categorias.service';
-import { ProdutosService } from 'src/app/core/services/produtos.service';
 
 @Component({
   selector: 'app-form-create-produtos',
@@ -11,13 +10,42 @@ import { ProdutosService } from 'src/app/core/services/produtos.service';
 })
 export class FormCreateProdutosComponent implements OnInit {
   @Output()
-  public save = new EventEmitter();
+  public create = new EventEmitter();
+
+  @Output()
+  public update = new EventEmitter();
 
   @Input()
-  public isUpdating = false;
+  get loading() {
+    return this._loading;
+  }
+
+  set loading(isLoading: boolean) {
+    this._loading = isLoading;
+
+    if (isLoading) {
+      this.produtoForm.disable();
+    } else {
+      this.produtoForm.enable();
+    }
+  }
 
   @Input()
-  public produto: any;
+  get produto() {
+    return this._produto;
+  }
+
+  set produto(produto: Produto) {
+    this._produto = produto;
+
+    if (produto) {
+      this.initForm();
+    }
+  }
+
+  public _produto: Produto;
+
+  public _loading: boolean;
 
   public produtoForm = this.fb.group({
     nome: ['', [Validators.required]],
@@ -26,35 +54,22 @@ export class FormCreateProdutosComponent implements OnInit {
     modelo: [''],
     valorBase: [99999999],
     peso: [null],
-    fotos: [
-      [
-        'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTTUdm-mABqcTZmnkAEM2CbuhGiAmi6nsWloZQz6-dzmlGJNw7GIB-21AYGIgm1fOEQzDUODU9pyaE&usqp=CAc',
-      ],
-    ],
+    fotos: [[], Validators.required],
     categorias: [[], [Validators.minLength(1)]],
   });
 
-  categorias: CategoriaI[] = [
-    { id: 1, nome: 'Categoria #1' },
-    { id: 2, nome: 'Categoria #2' },
-  ];
-
-  public loading = false;
+  categorias: Categoria[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private produtoService: ProdutosService,
     private categoriasService: CategoriasService
   ) {}
 
   ngOnInit() {
     this.loadCategorias();
-    if (this.produto) {
-      this.initProduto();
-    }
   }
 
-  initProduto() {
+  initForm() {
     const { nome, descricao, marca, modelo, valorBase, peso } = this.produto;
     const fotos = this.produto.fotos.map((f) => f.imageUrl);
     const categorias = this.produto.categorias.map((c) => c.id);
@@ -77,21 +92,12 @@ export class FormCreateProdutosComponent implements OnInit {
     this.categorias = await this.categoriasService.list();
   }
 
-  async createProduto(formDir: FormGroupDirective) {
-    this.loading = true;
-    this.produtoForm.disable();
-
-    if (this.isUpdating) {
-      await this.produtoService.update(this.produto.id, this.produtoForm.value);
+  async createProduto() {
+    if (this.produto?.id) {
+      this.update.emit(this.produtoForm.value);
     } else {
-      await this.produtoService.create(this.produtoForm.value);
+      this.create.emit(this.produtoForm.value);
     }
-    this.save.emit({ ...this.produtoForm.value });
-
-    formDir.resetForm();
-    this.produtoForm.reset();
-    this.produtoForm.enable();
-    this.loading = false;
   }
 
   getErrorMessage(fieldName) {

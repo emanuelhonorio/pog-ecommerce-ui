@@ -7,27 +7,30 @@
     </mat-toolbar>
 
     <mat-nav-list>
-      <a 
+      <a
         mat-list-item
         (click)="sidenav.close()"
         routerLink="/"
-        routerLinkActive="list-item-active">
+        routerLinkActive="list-item-active"
+      >
         <mat-icon matListIcon>dashboard</mat-icon>
         Dashboard
       </a>
-      <a 
+      <a
         mat-list-item
         (click)="sidenav.close()"
         routerLink="/admin/categorias"
-        routerLinkActive="list-item-active">
+        routerLinkActive="list-item-active"
+      >
         <mat-icon matListIcon>category</mat-icon>
         Gerenciar categorias
       </a>
-      <a 
+      <a
         mat-list-item
         (click)="sidenav.close()"
         routerLink="/admin/produtos"
-        routerLinkActive="list-item-active">
+        routerLinkActive="list-item-active"
+      >
         <mat-icon matListIcon>production_quantity_limits</mat-icon>
         Gerenciar produtos
       </a>
@@ -49,4 +52,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-  

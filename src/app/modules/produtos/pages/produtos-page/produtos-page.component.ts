@@ -63,4 +63,12 @@ export class ProdutosPageComponent implements OnInit, OnDestroy {
 
     this.produtoFilterStore.produtoFilter = filter;
   }
+
+  onPageChange(event) {
+    this.produtoFilterStore.produtoFilter = {
+      ...this.produtoFilterStore.produtoFilter,
+      page: event.pageIndex,
+      size: event.pageSize,
+    };
+  }
 }

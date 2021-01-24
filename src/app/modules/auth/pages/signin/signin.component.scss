@@ -1,0 +1,17 @@
+.card {
+  padding: 70px 50px;
+}
+
+h1,
+p {
+  color: rgb(52, 58, 64);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+mat-form-field {
+  width: 100%;
+}

@@ -1,54 +1,120 @@
-<div class="container mt-5">
-  <table>
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Quantidade</th>
-        <th>Valor</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of carrinho.items">
-        <td class="td-produto">
-          <img [src]="item.produto.fotos[0].imageUrl" />
-          <div class="td-produto__details">
-            <p class="td-produto__title">{{ item.produto.descricao }}</p>
-            <small
-              >Tamanho: {{ item.tamanhoEscolhido.nome }}, Cor:
-              {{ item.corEscolhida.nome }}, Marca:
-              {{ item.produto.marca }}</small
-            >
-          </div>
-        </td>
+<div *ngIf="carrinho?.items?.length > 0" class="container mt-5">
+  <h1>Items no carrinho</h1>
+  <div class="row">
+    <div class="col-lg-8">
+      <table>
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of carrinho.items">
+            <td class="td-produto">
+              <img [src]="item.produto.fotos[0].imageUrl" />
+              <div class="td-produto__details">
+                <p class="td-produto__title">{{ item.produto.nome }}</p>
+                <small
+                  >Tamanho: {{ item.tamanhoEscolhido.nome }}, Cor:
+                  {{ item.corEscolhida.nome }}, Marca:
+                  {{ item.produto.marca }}</small
+                >
+              </div>
+            </td>
 
-        <td class="td-quantidade">
-          <div class="quantidade-wrap">
-            <button mat-icon-button (click)="incAmmount(item.id)">
-              <mat-icon color="primary">add</mat-icon>
-            </button>
-            {{ item.quantidade }}
-            <button mat-icon-button>
-              <mat-icon color="primary" (click)="decAmmount(item.id)"
-                >remove</mat-icon
+            <td class="td-quantidade">
+              <div class="quantidade-wrap">
+                <button mat-icon-button (click)="incAmmount(item.id)">
+                  <mat-icon color="primary">add</mat-icon>
+                </button>
+                {{ item.quantidade }}
+                <button mat-icon-button (click)="decAmmount(item.id)">
+                  <mat-icon color="primary">remove</mat-icon>
+                </button>
+              </div>
+            </td>
+
+            <td class="td-valor">
+              <strong class="td-valor__subtotal">{{
+                formatValor(item.subTotal)
+              }}</strong>
+              <small class="td-valor__cada"
+                >{{ getValorUnidadeFormatado(item) }} cada</small
               >
-            </button>
+            </td>
+
+            <td>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="removeItem(item.id)"
+              >
+                <mat-icon color="warn">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-lg-4 mt-4 mt-lg-0">
+      <div class="summary">
+        <h2>Resumo</h2>
+
+        <dl>
+          <div class="dl-row">
+            <dt>Subtotal</dt>
+            <dd>{{ formatValor(carrinho.total) }}</dd>
           </div>
-        </td>
+          <div class="dl-row">
+            <dt>Frete</dt>
+            <dd class="free">
+              <mat-icon>local_shipping</mat-icon> Frete Grátis
+            </dd>
+          </div>
+        </dl>
 
-        <td class="td-valor">
-          <strong class="td-valor__subtotal">${{ item.subTotal }}</strong>
-          <small class="td-valor__cada"
-            >{{ item.produto.valorBaseFormatado }} cada</small
-          >
-        </td>
+        <div class="summary__center">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Código Promocional</mat-label>
+            <input matInput placeholder="Insira um código..." />
+            <mat-icon matSuffix>east</mat-icon>
+          </mat-form-field>
+        </div>
 
-        <td>
-          <button mat-icon-button color="warn" (click)="removeItem(item.id)">
-            <mat-icon color="warn">delete</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <dl>
+          <div class="dl-row">
+            <dt>Preço total</dt>
+            <dd>{{ formatValor(carrinho.total) }}</dd>
+          </div>
+        </dl>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="w-100 py-1"
+          routerLink="/checkout"
+        >
+          Prosseguir com a compra
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="container mt-5"
+  *ngIf="!carrinho || !carrinho.items || carrinho.items.length === 0"
+>
+  <div class="empty-cart">
+    <mat-icon>shopping_basket</mat-icon>
+    <h2>Carrinho vazio</h2>
+    <button mat-stroked-button routerLink="/">
+      <mat-icon matSuffix>west</mat-icon>
+      Continuar comprando
+    </button>
+  </div>
 </div>

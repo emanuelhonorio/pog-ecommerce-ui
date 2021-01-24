@@ -1,0 +1,96 @@
+<div class="container mt-5">
+  <mat-accordion>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Informações pessoais </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form
+        #profileForm="ngForm"
+        [formGroup]="userForm"
+        class="row"
+        (ngSubmit)="updateProfile(profileForm)"
+      >
+        <mat-form-field class="col-md-8" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Nome"
+            formControlName="nome"
+          />
+          <mat-error *ngIf="userForm.get('nome').invalid">{{
+            getErrorMessage(userForm, "nome")
+          }}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-8" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Email"
+            formControlName="email"
+          />
+          <mat-error *ngIf="userForm.get('email').invalid">{{
+            getErrorMessage(userForm, "email")
+          }}</mat-error>
+        </mat-form-field>
+        <div class="col-12">
+          <button
+            mat-flat-button
+            class="mr-2"
+            color="primary"
+            type="submit"
+            [disabled]="userForm.invalid || userLoading"
+          >
+            {{ userLoading ? "Salvando..." : "Salvar" }}
+          </button>
+          <button
+            mat-flat-button
+            (click)="initForm()"
+            type="button"
+            [disabled]="userForm.invalid || userLoading"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Endereços </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>business</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-form-enderecos
+        (create)="createEndereco($event)"
+        [loading]="createEnderecoLoading"
+      ></app-form-enderecos>
+
+      <div class="mt-5">
+        <app-table-enderecos
+          [enderecos]="enderecos"
+          (delete)="deleteEndereco($event)"
+          (edit)="openDialogEndereco(dialogEndereco, $event)"
+        ></app-table-enderecos>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<ng-template #dialogEndereco>
+  <h2 mat-dialog-title>Atualizar endereco</h2>
+  <mat-dialog-content class="mat-typography">
+    <app-form-enderecos
+      (update)="editEndereco($event)"
+      [loading]="updateEnderecoLoading"
+      [endereco]="endereco"
+    ></app-form-enderecos>
+  </mat-dialog-content>
+</ng-template>

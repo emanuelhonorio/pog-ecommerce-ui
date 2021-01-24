@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProdutosService } from 'src/app/core/services/produtos.service';
-
 @Component({
   selector: 'app-produto-details',
   templateUrl: './produto-details.component.html',
@@ -49,5 +48,6 @@ export class ProdutoDetailsComponent implements OnInit {
 
     this.produto = this.produtoService.wrapInfo([this.produto])[0];
     this.loading = false;
+    console.log(this.produto);
   }
 }

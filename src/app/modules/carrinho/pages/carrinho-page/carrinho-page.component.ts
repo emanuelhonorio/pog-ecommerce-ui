@@ -1,9 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { element } from 'protractor';
 import { Subscription } from 'rxjs';
 import {
   CarrinhoService,
   Carrinho,
+  ItemCarrinho,
 } from 'src/app/core/services/carrinho.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-carrinho-page',
@@ -28,6 +33,11 @@ export class CarrinhoPageComponent implements OnInit, OnDestroy {
     if (this.carrinho$) this.carrinho$.unsubscribe();
   }
 
+  getValorUnidadeFormatado(item: ItemCarrinho) {
+    const valorUnidade = this.carrinhoService.calculaValorUnidade(item);
+    return this.formatValor(valorUnidade);
+  }
+
   removeItem(itemId: number): void {
     this.carrinhoService.removeItem(itemId);
   }
@@ -38,5 +48,14 @@ export class CarrinhoPageComponent implements OnInit, OnDestroy {
 
   decAmmount(itemId: number): void {
     this.carrinhoService.decAmmount(itemId);
+  }
+
+  formatValor(valor: number) {
+    return valor.toLocaleString('pt-br', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
   }
 }

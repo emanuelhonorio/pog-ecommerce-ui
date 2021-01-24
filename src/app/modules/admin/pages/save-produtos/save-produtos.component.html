@@ -1,14 +1,11 @@
 <div class="container mt-5">
-  <h1>{{ isUpdating ? "Atualizar produto" : "Adicionar produto" }}</h1>
+  <h1>{{ produtoId ? "Atualizar produto" : "Adicionar produto" }}</h1>
 
-  <div *ngIf="isUpdating && loading">
-    <h3>Carregando informações...</h3>
-  </div>
-
-  <mat-card *ngIf="!loading">
+  <mat-card>
     <app-form-create-produtos
-      (save)="handleSaveProduto($event)"
-      [isUpdating]="isUpdating"
+      (create)="handleSaveProduto($event, false)"
+      (update)="handleSaveProduto($event, true)"
+      [loading]="loading"
       [produto]="produto"
     ></app-form-create-produtos>
   </mat-card>

@@ -1,20 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CategoriaI } from 'src/app/core/models/api-models';
+import { Categoria } from 'src/app/core/models/api-models';
 
 @Component({
   selector: 'app-table-categorias',
   templateUrl: './table-categorias.component.html',
-  styleUrls: ['./table-categorias.component.scss']
+  styleUrls: ['./table-categorias.component.scss'],
 })
 export class TableCategoriasComponent implements OnInit {
-
   @Input()
-  public categorias: CategoriaI[] = [];
-  
+  public categorias: Categoria[] = [];
+
   displayedColumns: string[] = ['id', 'nome'];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

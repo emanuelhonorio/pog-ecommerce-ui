@@ -16,7 +16,7 @@ import { ProdutoFilterCardComponent } from './components/produto-filter-card/pro
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProdutoDetailsCardComponent } from './components/produto-details-card/produto-details-card.component';
 import { ProdutoDetailsComponent } from './pages/produto-details/produto-details.component';
 import { RouterModule } from '@angular/router';
@@ -32,6 +32,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     MatIconModule,
     MatButtonToggleModule,

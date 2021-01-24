@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="col-lg-6 col-md-6 m-auto">
+    <h1>Crie sua conta</h1>
+    <mat-card class="card">
+      <p style="color: red">{{ error }}</p>
+      <form #form="ngForm" [formGroup]="formG" (ngSubmit)="signup(form)">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input
+            name="nome"
+            matInput
+            placeholder="Seu nome..."
+            formControlName="nome"
+          />
+          <mat-error *ngIf="formG.get('nome').invalid">{{
+            getErrorMessage("nome")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            name="email"
+            placeholder="pog@example.com"
+            formControlName="email"
+          />
+          <mat-error *ngIf="formG.get('email').invalid">{{
+            getErrorMessage("email")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input
+            type="password"
+            name="senha"
+            matInput
+            placeholder="******"
+            formControlName="senha"
+          />
+          <mat-error *ngIf="formG.get('senha').invalid">{{
+            getErrorMessage("senha")
+          }}</mat-error>
+        </mat-form-field>
+
+        <div class="mt-4">
+          <button
+            type="submit"
+            mat-flat-button
+            class="w-100 py-2"
+            color="primary"
+            [disabled]="formG.invalid || loading"
+          >
+            {{ loading ? "Criando...." : "Criar conta" }}
+          </button>
+        </div>
+      </form>
+    </mat-card>
+
+    <p class="text-center mt-4">
+      Possui uma conta? <a href="javascript:;" routerLink="/entrar">Entrar</a>
+    </p>
+  </div>
+</div>

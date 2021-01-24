@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { CorI, TamanhoI } from '../models/api-models';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { Cor, Estoque, Tamanho } from '../models/api-models';
 
 export interface ItemCarrinho {
   id?: number;
   produto?: any;
-  tamanhoEscolhido?: TamanhoI;
-  corEscolhida?: CorI;
+  corEscolhida?: Cor;
+  tamanhoEscolhido?: Tamanho;
+  estoque?: Estoque;
   quantidade: number;
   subTotal: number;
 }
@@ -26,11 +30,11 @@ export class CarrinhoService {
     total: 0,
   });
 
-  readonly carrinho$ = this._carrinho.asObservable();
+  readonly carrinho$: Observable<Carrinho> = this._carrinho.asObservable();
 
-  private nextItemId: number = 1;
-
-  constructor() {}
+  constructor(private dialog: MatDialog, private toasr: ToastrService) {
+    this.initCarrinhoFromLocalStorage();
+  }
 
   get carrinho(): Carrinho {
     return this._carrinho.getValue();
@@ -38,6 +42,40 @@ export class CarrinhoService {
 
   set carrinho(val: Carrinho) {
     this._carrinho.next(val);
+    localStorage.setItem('$$pog_carrinho$$', JSON.stringify(this.carrinho));
+  }
+
+  limparCarrinho() {
+    this.carrinho = {
+      items: [],
+      total: 0,
+    };
+  }
+
+  initCarrinhoFromLocalStorage() {
+    const LSCarrinho = localStorage.getItem('$$pog_carrinho$$');
+
+    if (!LSCarrinho) {
+      this.limparCarrinho();
+      return;
+    }
+
+    const carrinhoParsed = JSON.parse(LSCarrinho);
+
+    if (!carrinhoParsed?.total || !carrinhoParsed?.items) {
+      this.limparCarrinho();
+      return;
+    }
+
+    carrinhoParsed.total = 0;
+
+    for (let item of carrinhoParsed.items) {
+      item.subTotal = this.calculaSubtotal(item);
+      carrinhoParsed.total += item.subTotal;
+    }
+
+    // triggering the set
+    this.carrinho = carrinhoParsed;
   }
 
   findIndexItemInCart(item: ItemCarrinho): number {
@@ -52,56 +90,90 @@ export class CarrinhoService {
 
   incAmmount(itemId: number) {
     const item = this.carrinho.items.find((i) => i.id === itemId);
-    if (item) {
-      item.quantidade++;
-      item.subTotal = item.quantidade * item.produto.valorBase;
-      // triggering the set
-      this.carrinho = { ...this.carrinho };
-    }
+
+    if (!item) return;
+
+    item.quantidade++;
+    item.subTotal = this.calculaSubtotal(item);
+    this.carrinho.total += this.calculaValorUnidade(item);
+    // triggering the set
+    this.carrinho = { ...this.carrinho };
   }
 
   decAmmount(itemId: number) {
     const item = this.carrinho.items.find((i) => i.id === itemId);
-    if (item) {
-      if (item.quantidade == 1) {
-        this.removeItem(itemId);
-      } else {
-        item.quantidade--;
-      }
-      item.subTotal = item.quantidade * item.produto.valorBase;
-      // triggering the set
-      this.carrinho = { ...this.carrinho };
-    }
+
+    if (!item) return;
+
+    if (item.quantidade === 1) return this.removeItem(itemId);
+
+    item.quantidade--;
+    item.subTotal = this.calculaSubtotal(item);
+    this.carrinho.total -= this.calculaValorUnidade(item);
+    // triggering the set
+    this.carrinho = { ...this.carrinho };
   }
 
   addItem(item: ItemCarrinho) {
-    const newCarrinhoState = { ...this.carrinho };
-
     const itemFoundIdx = this.findIndexItemInCart(item);
-    console.log('item', this.carrinho.items, item, itemFoundIdx);
+
+    // PRODUCT IS IN THE CART
     if (itemFoundIdx !== -1) {
-      // if product is already in the cart
-      let newItem = this.carrinho.items[itemFoundIdx];
-
-      console.log('new Item', newItem);
-
-      newItem.quantidade += item.quantidade;
-      newItem.subTotal += item.subTotal;
-    } else {
-      // if product are not in the cart
-      newCarrinhoState.items.push({
-        ...item,
-        id: this.nextItemId++,
-      });
+      return this.incAmmount(this.carrinho.items[itemFoundIdx].id);
     }
 
+    // PRODUCT IS NOT IN THE CART
+    item.subTotal = this.calculaSubtotal(item);
+    this.carrinho.total += item.subTotal;
+    this.carrinho.items.push({
+      ...item,
+      id: new Date().getTime(),
+    });
+
     // triggering the set
-    this.carrinho = newCarrinhoState;
+    this.carrinho = { ...this.carrinho };
   }
 
   removeItem(itemId: number) {
-    this.carrinho.items = this.carrinho.items.filter((i) => i.id !== itemId);
-    // triggering the set
-    this.carrinho = { ...this.carrinho };
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Excluir item',
+        message: 'Tem certeza que deseja remover este item do carrinho?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.carrinho.items = this.carrinho.items.filter((el) => {
+          if (el.id === itemId) {
+            this.carrinho.total -= this.calculaSubtotal(el);
+            return false;
+          }
+          return true;
+        });
+        // triggering the set
+        this.carrinho = {
+          ...this.carrinho,
+        };
+        this.toasr.success('Item removido com sucesso');
+      }
+    });
+  }
+
+  calculaSubtotal(item: ItemCarrinho): number {
+    return item.quantidade * this.calculaValorUnidade(item);
+  }
+
+  calculaValorUnidade(item: ItemCarrinho) {
+    return item.produto.valorBase + item.estoque.acrescimoValor;
+  }
+
+  calculaTotal(items: ItemCarrinho[]): number {
+    items = items || [];
+
+    return items.reduce((total, item) => {
+      return total + this.calculaSubtotal(item);
+    }, 0);
   }
 }

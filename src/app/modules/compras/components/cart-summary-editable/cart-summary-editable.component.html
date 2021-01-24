@@ -1,0 +1,31 @@
+<div class="summary">
+  <div class="summary__content">
+    <div class="summary__content__top">
+      <mat-icon>shopping_cart</mat-icon>
+      <h2>Carrinho</h2>
+      <span routerLink="/carrinho">(<a href="javascript:;">Edit</a>)</span>
+    </div>
+
+    <div class="summary__list">
+      <div class="summary__list__item" *ngFor="let item of carrinho?.items">
+        <div class="summary__list__item__left">
+          <h4>
+            <span class="quantidade">{{ item.quantidade }} x</span>
+            {{ item.produto.nome }}
+          </h4>
+          <small
+            >Tamanho: {{ item.tamanhoEscolhido.nome }}, Cor:
+            {{ item.corEscolhida.nome }}</small
+          >
+        </div>
+        <div class="summary__list__item__right">
+          <strong>{{ formatarValor(item.subTotal) }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="summary__footer">
+    <span>Sub total: </span>
+    <strong>{{ formatarValor(carrinho.total) }}</strong>
+  </div>
+</div>

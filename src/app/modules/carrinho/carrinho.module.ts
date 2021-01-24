@@ -5,9 +5,19 @@ import { CarrinhoPageComponent } from './pages/carrinho-page/carrinho-page.compo
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
+
+const material = [
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatFormFieldModule,
+];
 
 @NgModule({
   declarations: [CarrinhoPageComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ...material],
 })
 export class CarrinhoModule {}

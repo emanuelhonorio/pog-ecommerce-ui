@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-table-estoques',
   templateUrl: './table-estoques.component.html',
   styleUrls: ['./table-estoques.component.scss'],
 })
-export class TableEstoquesComponent implements OnInit {
+export class TableEstoquesComponent {
   @Input()
   produto;
 
@@ -25,7 +27,21 @@ export class TableEstoquesComponent implements OnInit {
   ];
   expandedElement: any;
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  onDelete(element): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Excluir estoque',
+        message: 'Tem certeza que deseja excluir estoque com id ' + element.id,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.delete.emit(element.id);
+      }
+    });
+  }
 }

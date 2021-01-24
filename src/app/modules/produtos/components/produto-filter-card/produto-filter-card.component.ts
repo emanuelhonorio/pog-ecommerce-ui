@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaI } from 'src/app/core/models/api-models';
+import { Categoria } from 'src/app/core/models/api-models';
 import { CategoriasService } from 'src/app/core/services/categorias.service';
 import { ProdutoFilterStoreService } from 'src/app/core/services/produto-filter-store.service';
 
@@ -9,7 +9,7 @@ import { ProdutoFilterStoreService } from 'src/app/core/services/produto-filter-
   styleUrls: ['./produto-filter-card.component.scss'],
 })
 export class ProdutoFilterCardComponent implements OnInit {
-  categorias: CategoriaI[] = [];
+  categorias: Categoria[] = [];
   categoriasChecked = {}; // categoriaId :number, checked: boolean
 
   valorDe: number;

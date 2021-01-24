@@ -39,15 +39,29 @@
         >
       </button>
       <div class="avatar-container">
-        <button mat-icon-button>
-          <mat-icon>account_circle</mat-icon>
-        </button>
-        <div>
-          <p>Welcome</p>
-          <span>Sign in</span>
-          <span> | </span>
-          <span>Register</span>
-        </div>
+        <ng-template [ngIf]="user">
+          <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <p>Olá, {{ user.nome }}</p>
+          <mat-menu #accountMenu="matMenu">
+            <button mat-menu-item routerLink="/perfil">Meu perfil</button>
+            <button mat-menu-item routerLink="/pedidos">Meus pedidos</button>
+            <button mat-menu-item (click)="logout()">Sair</button>
+          </mat-menu>
+        </ng-template>
+
+        <ng-template [ngIf]="!user">
+          <button mat-icon-button>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <div>
+            <p>Bem vindo</p>
+            <span routerLink="/entrar">Entrar</span>
+            <span> | </span>
+            <span routerLink="/cadastrar">Cadastrar-se</span>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

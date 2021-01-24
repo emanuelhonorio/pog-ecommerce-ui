@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
@@ -14,6 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const materialComponents = [
   MatBadgeModule,
@@ -36,5 +37,8 @@ const materialComponents = [
     ...materialComponents,
   ],
   exports: [NavigationBarComponent, ...materialComponents],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
 })
 export class CoreModule {}

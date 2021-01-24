@@ -21,7 +21,7 @@
     <p class="product__orders">
       <mat-icon color="primary">shopping_bag</mat-icon> 154 orders
     </p>
-    <p class="product__price">{{ produto.valorBaseFormatado }}</p>
+    <p class="product__price">{{ formatarValor(valorUnidade) }}</p>
     <p class="product__description mt-2">
       {{ produto.descricao }}
     </p>
@@ -48,48 +48,51 @@
       </ng-template>
     </dl>
 
-    <form #form="ngForm" class="row mt-auto">
+    <form
+      *ngIf="produto.disponivel"
+      #form="ngForm"
+      [formGroup]="formG"
+      class="row mt-auto"
+    >
       <mat-form-field appearence="outline" class="col-sm-5">
         <input
           matInput
           type="number"
-          id="quantidade"
-          placeholder="Quantidade..."
-          [(ngModel)]="quantidade"
-          name="quantidade"
-          required
-          [min]="1"
+          placeholder="Quantidade"
+          formControlName="quantidade"
         />
       </mat-form-field>
       <mat-form-field class="col-sm-10" *ngIf="!produto.corUnica">
         <mat-label>Cor</mat-label>
-        <mat-select [(ngModel)]="corEscolhida" name="corEscolhida" required>
-          <mat-option *ngFor="let cor of produto.cores" [value]="cor"
+        <mat-select formControlName="corEscolhida">
+          <mat-option
+            *ngFor="let cor of produto.cores"
+            [value]="cor"
+            [disabled]="!cor?.disponivel"
             >{{ cor.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="col-sm-10" *ngIf="!produto.tamanhoUnico">
         <mat-label>Tamanho</mat-label>
-        <mat-select
-          [(ngModel)]="tamanhoEscolhido"
-          name="tamanhoEscolhido"
-          required
-        >
-          <mat-option *ngFor="let tamanho of produto.tamanhos" [value]="tamanho"
+        <mat-select formControlName="tamanhoEscolhido">
+          <mat-option
+            *ngFor="let tamanho of produto.tamanhos"
+            [value]="tamanho"
+            [disabled]="!tamanho?.disponivel"
             >{{ tamanho.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </form>
-    <div class="row mt-4">
+    <div *ngIf="produto.disponivel" class="row mt-4">
       <div class="col-12">
         <button
           mat-flat-button
           color="primary"
           class="mr-2"
           (click)="comprarAgora()"
-          [disabled]="form.invalid"
+          [disabled]="formG.invalid"
         >
           Comprar agora
         </button>
@@ -97,7 +100,7 @@
           mat-stroked-button
           color="primary"
           (click)="addItemAoCarrinho()"
-          [disabled]="form.invalid"
+          [disabled]="formG.invalid"
         >
           Adicionar ao carrinho
           <mat-icon color="primary" style="font-size: 20px"
@@ -105,6 +108,10 @@
           >
         </button>
       </div>
+    </div>
+
+    <div *ngIf="!produto.disponivel" class="row mt-auto">
+      <h2 class="col-12">Produto indisponível</h2>
     </div>
   </div>
 </div>

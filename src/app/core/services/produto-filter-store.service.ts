@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ProdutoFilter } from '../models/api-models';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { ProdutoFilter } from '../models/api-models';
 export class ProdutoFilterStoreService {
   private readonly _produtoFilter = new BehaviorSubject<ProdutoFilter>({});
 
-  readonly produtoFilter$ = this._produtoFilter.asObservable();
+  readonly produtoFilter$: Observable<ProdutoFilter> = this._produtoFilter.asObservable();
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 

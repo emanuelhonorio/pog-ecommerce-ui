@@ -1,7 +1,8 @@
-<form #formDir="ngForm" [formGroup]="estoqueForm" (ngSubmit)="onSubmit(formDir)">
-  <h1>Estoque</h1>
-
-
+<form
+  #formDir="ngForm"
+  [formGroup]="estoqueForm"
+  (ngSubmit)="onSubmit(formDir)"
+>
   <!-- Field de Cor -->
   <div class="row">
     <div class="col-md-6 has-buttons">
@@ -9,10 +10,18 @@
         <mat-label>Escolha uma cor</mat-label>
         <mat-select formControlName="cor">
           <mat-option>Nenhuma</mat-option>
-          <mat-option *ngFor="let cor of cores" [value]="cor.id">{{ cor.nome }}</mat-option>
+          <mat-option *ngFor="let cor of cores" [value]="cor.id">{{
+            cor.nome
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-icon-button color="primary" type="button" [disabled]="loading" (click)="openDialog(dialogCor)">
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        [disabled]="loading"
+        (click)="openDialog(dialogCor)"
+      >
         <mat-icon color="primary">add</mat-icon>
       </button>
     </div>
@@ -25,10 +34,18 @@
         <mat-label>Escolha um tamanho</mat-label>
         <mat-select formControlName="tamanho">
           <mat-option>Nenhum</mat-option>
-          <mat-option *ngFor="let tamanho of tamanhos" [value]="tamanho.id">{{ tamanho.nome }}</mat-option>
+          <mat-option *ngFor="let tamanho of tamanhos" [value]="tamanho.id">{{
+            tamanho.nome
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-icon-button color="primary" type="button" [disabled]="loading" (click)="openDialog(dialogTamanho)">
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        [disabled]="loading"
+        (click)="openDialog(dialogTamanho)"
+      >
         <mat-icon color="primary">add</mat-icon>
       </button>
     </div>
@@ -39,7 +56,7 @@
     <div class="col-md-4">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Quantidade em estoque</mat-label>
-        <input matInput type="number" formControlName="qtdEstoque">
+        <input matInput type="number" formControlName="qtdEstoque" />
       </mat-form-field>
     </div>
   </div>
@@ -49,40 +66,26 @@
     <div class="col-md-4">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Acrescimo Valor</mat-label>
-        <input matInput type="number" formControlName="acrescimoValor">
+        <input matInput type="number" formControlName="acrescimoValor" />
       </mat-form-field>
     </div>
   </div>
 
-  <!-- Field de Fotos>
-    <h2 class="mt-2">Fotos do produto</h2>
-  
-    <div formArrayName="fotos">
-      <div class="row" *ngFor="let foto of fotos.controls; let i = index;">
-        <div class="col-12 has-buttons">
-          <mat-form-field appearance="outline">
-            <mat-label>Image url</mat-label>
-            <input matInput type="url" [formControlName]="i">
-          </mat-form-field>
-          <button mat-icon-button color="warn" (click)="deleteFoto(i)" type="button" [disabled]="loading">
-            <mat-icon color="warn">delete</mat-icon>
-          </button>
-        </div>
-      </div>
-  
-      <button mat-button color="primary" (click)="addFoto()" type="button" [disabled]="loading">
-        <mat-icon color="primary">add</mat-icon>
-        Add Foto
-      </button>
-    </div -->
+  <!-- Button Submit -->
+  <div class="mt-1">
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="estoqueForm.invalid || loading"
+    >
+      {{ loading ? "Salvando..." : "Salvar" }}
+    </button>
 
-
-  <div class="mt-5">
-    <button mat-raised-button color="primary" type="submit" [disabled]="estoqueForm.invalid || loading">
-      {{ loading ? 'Salvando...' : 'Salvar' }}
+    <button mat-button type="button" [disabled]="loading" (click)="initForm()">
+      Cancelar
     </button>
   </div>
-
 </form>
 
 <ng-template #dialogCor>
@@ -90,14 +93,20 @@
   <mat-dialog-content class="mat-typography">
     <mat-form-field appearance="outline">
       <mat-label>Cor</mat-label>
-      <input matInput type="url" [formControl]="corCtrl">
+      <input matInput type="url" [formControl]="corCtrl" />
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Fechar</button>
-    <button mat-button [mat-dialog-close]="true" [disabled]="corCtrl.invalid || loading"
-      (click)="createCor()">Criar</button>
+    <button
+      mat-button
+      [mat-dialog-close]="true"
+      [disabled]="corCtrl.invalid || loading"
+      (click)="createCor()"
+    >
+      Criar
+    </button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -106,13 +115,19 @@
   <mat-dialog-content class="mat-typography">
     <mat-form-field appearance="outline">
       <mat-label>Tamanho</mat-label>
-      <input matInput type="url" [formControl]="tamanhoCtrl">
+      <input matInput type="url" [formControl]="tamanhoCtrl" />
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Fechar</button>
-    <button mat-button [mat-dialog-close]="true" [disabled]="tamanhoCtrl.invalid || loading"
-      (click)="createTamanho()">Criar</button>
+    <button
+      mat-button
+      [mat-dialog-close]="true"
+      [disabled]="tamanhoCtrl.invalid || loading"
+      (click)="createTamanho()"
+    >
+      Criar
+    </button>
   </mat-dialog-actions>
 </ng-template>

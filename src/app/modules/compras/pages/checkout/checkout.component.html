@@ -1,0 +1,87 @@
+<div *ngIf="carrinho?.items?.length > 0" class="container my-5">
+  <div class="row mt-2">
+    <div class="col-lg-8 col-md-7 order-2">
+      <div class="left">
+        <section class="section-endereco">
+          <h2>Escolha o endereço de entrega</h2>
+          <div class="row">
+            <div
+              *ngFor="let endereco of enderecos"
+              class="col-lg-5 col-md-6 col-sm-8"
+            >
+              <div
+                class="selectable mt-2"
+                [ngClass]="{ selected: endereco.id == selectedEnderecoId }"
+                (click)="selectedEnderecoId = endereco.id"
+              >
+                <ng-template [ngIf]="enderecoInfoMap[endereco.cep]?.logradouro">
+                  <p>
+                    {{ enderecoInfoMap[endereco.cep]?.logradouro }},
+                    <span>{{ endereco.numero }}</span>
+                  </p>
+                  <p>
+                    {{ enderecoInfoMap[endereco.cep]?.cep }}
+                  </p>
+                  <p>
+                    {{
+                      enderecoInfoMap[endereco.cep]?.localidade +
+                        "/" +
+                        enderecoInfoMap[endereco.cep]?.uf
+                    }}
+                  </p>
+                </ng-template>
+                <ng-template
+                  [ngIf]="!enderecoInfoMap[endereco.cep]?.logradouro"
+                >
+                  Endereço inválido
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <button mat-stroked-button class="mt-4" routerLink="/perfil">
+            Gerenciar meus endereços
+          </button>
+        </section>
+
+        <section class="section-frete mt-5">
+          <h2>Opção de entrega</h2>
+          <dd class="free"><mat-icon>local_shipping</mat-icon> Frete Grátis</dd>
+        </section>
+
+        <section class="section-total mt-5">
+          <h2 class="total">
+            Total: <span>{{ formatarValor(carrinho.total) }}</span>
+          </h2>
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="w-100 py-2"
+            [disabled]="loading || disabled"
+            (click)="finalizarCompra()"
+          >
+            {{ loading ? "Finalizando..." : "Finalizar Pedido" }}
+          </button>
+        </section>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-5 mt-sm-2 mt-md-0 mb-5 order-md-2">
+      <app-cart-summary-editable></app-cart-summary-editable>
+    </div>
+  </div>
+</div>
+
+<div
+  class="container mt-5"
+  *ngIf="!carrinho || !carrinho.items || carrinho.items.length === 0"
+>
+  <div class="empty-cart">
+    <mat-icon>shopping_basket</mat-icon>
+    <h2>Carrinho vazio</h2>
+    <button mat-stroked-button routerLink="/">
+      <mat-icon matSuffix>west</mat-icon>
+      Continuar comprando
+    </button>
+  </div>
+</div>
