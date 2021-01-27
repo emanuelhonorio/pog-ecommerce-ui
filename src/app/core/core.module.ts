@@ -36,7 +36,7 @@ const materialComponents = [
     HttpClientModule,
     ...materialComponents,
   ],
-  exports: [NavigationBarComponent],
+  exports: [NavigationBarComponent, ...materialComponents],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
