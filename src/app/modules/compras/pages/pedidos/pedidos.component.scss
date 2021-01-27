@@ -1,125 +1,46 @@
 .pedido {
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 6px;
-  background-color: #fff;
-  margin: 20px 0;
-
-  h3 {
-    font-size: 1.3em;
-  }
-
-  &__timeline {
-    padding: 0 60px;
-    padding-bottom: 50px;
-  }
-}
-
-.horizontal.timeline {
   display: flex;
-  position: relative;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-
-  &:before {
-    content: "";
-    display: block;
-    position: absolute;
-
-    width: 100%;
-    height: 0.2em;
-    background-color: lighten(#000, 95%);
-  }
-
-  .line {
-    display: block;
-    position: absolute;
-
-    width: 25%;
-    height: 0.2em;
-    background-color: #8897ec;
-  }
-
-  .steps {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    .step {
-      display: block;
-      position: relative;
-      bottom: calc(100% + 1em);
-      padding: 0.33em;
-      margin: 0 2em;
-      box-sizing: content-box;
-
-      color: #8897ec;
-      background-color: currentColor;
-      border: 0.25em solid white;
-      border-radius: 50%;
-      z-index: 500;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-        color: #71cb35;
-      }
-
-      span {
-        position: absolute;
-
-        top: calc(100% + 1em);
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        color: #000;
-        opacity: 0.4;
-      }
-
-      &.current {
-        &:before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-
-          padding: 1em;
-          background-color: currentColor;
-          border-radius: 50%;
-          opacity: 0;
-          z-index: -1;
-
-          animation-name: animation-timeline-current;
-          animation-duration: 2s;
-          animation-iteration-count: infinite;
-          animation-timing-function: ease-out;
-        }
-
-        span {
-          opacity: 0.8;
-        }
-      }
-    }
-  }
+  padding: 20px 30px;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
 
-@keyframes animation-timeline-current {
-  from {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
+.pedido__left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  .pedido__icon {
+    background-color: #eee;
+    width: 50px;
+    height: 50px;
+    border-radius: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    margin-right: 30px;
+    user-select: none;
+
+    > mat-icon {
+      font-size: 2.5em;
+      display: table;
+      vertical-align: middle;
+      color: #fff;
+    }
   }
-  to {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
+
+  .pedido__text {
+    &__title {
+      font-weight: 500;
+      font-size: 1.3em;
+      margin-bottom: 7px;
+    }
+
+    &__status {
+      color: var(--primary);
+    }
   }
 }

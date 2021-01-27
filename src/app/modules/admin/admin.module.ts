@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ManageCategoriasComponent } from './manage-categorias/manage-categorias.component';
+import { ManageCategoriasComponent } from './pages/manage-categorias/manage-categorias.component';
 import { DialogCreateCategoriasComponent } from './components/dialog-create-categorias/dialog-create-categorias.component';
 import { AdminRoutingModule } from './admin.routing.module';
 import { TableProdutoEstoqueComponent } from './components/table-produto-estoque/table-produto-estoque.component';
@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ManageProdutosComponent } from './manage-produtos/manage-produtos.component';
+import { ManageProdutosComponent } from './pages/manage-produtos/manage-produtos.component';
 import { TableProdutosComponent } from './components/table-produtos/table-produtos.component';
 import { FormCreateProdutosComponent } from './components/form-create-produtos/form-create-produtos.component';
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +20,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MultiSelectCategoriasComponent } from './components/multi-select-categorias/multi-select-categorias.component';
-import { ManageProdutosEstoqueComponent } from './manage-produtos-estoque/manage-produtos-estoque.component';
+import { ManageProdutosEstoqueComponent } from './pages/manage-produtos-estoque/manage-produtos-estoque.component';
 import { ProdutoEstoqueFormComponent } from './components/produto-estoque-form/produto-estoque-form.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -29,6 +29,7 @@ import { FormCreateEstoquesComponent } from './components/form-create-estoques/f
 import { TableEstoquesComponent } from './components/table-estoques/table-estoques.component';
 import { SaveProdutosComponent } from './pages/save-produtos/save-produtos.component';
 import { FotosFieldComponent } from './components/fotos-field/fotos-field.component';
+import { ManagePedidosComponent } from './pages/manage-pedidos/manage-pedidos.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { FotosFieldComponent } from './components/fotos-field/fotos-field.compon
     TableEstoquesComponent,
     SaveProdutosComponent,
     FotosFieldComponent,
+    ManagePedidosComponent,
   ],
   imports: [
     CommonModule,

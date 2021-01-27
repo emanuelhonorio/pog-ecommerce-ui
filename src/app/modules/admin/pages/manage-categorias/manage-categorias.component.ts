@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Categoria } from 'src/app/core/models/api-models';
 import { CategoriasService } from 'src/app/core/services/categorias.service';
-import { DialogCreateCategoriasComponent } from '../components/dialog-create-categorias/dialog-create-categorias.component';
+import { DialogCreateCategoriasComponent } from '../../components/dialog-create-categorias/dialog-create-categorias.component';
 
 @Component({
   selector: 'app-manage-categorias',

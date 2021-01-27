@@ -34,6 +34,15 @@
         <mat-icon matListIcon>production_quantity_limits</mat-icon>
         Gerenciar produtos
       </a>
+      <a
+        mat-list-item
+        (click)="sidenav.close()"
+        routerLink="/admin/pedidos"
+        routerLinkActive="list-item-active"
+      >
+        <mat-icon matListIcon>local_shipping</mat-icon>
+        Gerenciar pedidos
+      </a>
       <!--a 
         mat-list-item
         (click)="sidenav.close()"

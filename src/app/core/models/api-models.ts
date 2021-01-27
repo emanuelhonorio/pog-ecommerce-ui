@@ -32,6 +32,7 @@ export interface Compra {
   total?: number;
   items?: ItemCompra[];
   usuario?: Usuario;
+  status: 'PENDING' | 'CONFIRMED' | 'IN_TRANSPORT' | 'DELIVERED';
   enderecoDeEntrega?: Endereco;
 }
 

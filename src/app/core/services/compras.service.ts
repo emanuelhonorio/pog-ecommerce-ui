@@ -12,10 +12,12 @@ export class ComprasService {
   constructor(private http: HttpClient) {}
 
   list() {
-    return this.http.get(`${this.baseApiUrl}/compras`).toPromise();
+    return this.http.get(`${this.baseApiUrl}/me/compras`).toPromise();
   }
 
   comprar(compraDTO: CompraDTO) {
-    return this.http.post(`${this.baseApiUrl}/compras`, compraDTO).toPromise();
+    return this.http
+      .post(`${this.baseApiUrl}/me/compras`, compraDTO)
+      .toPromise();
   }
 }

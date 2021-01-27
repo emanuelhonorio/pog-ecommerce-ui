@@ -23,6 +23,21 @@ export class PedidosComponent implements OnInit {
     console.log('compras', this.compras);
   }
 
+  getStatusDescription(statusCompra: string) {
+    switch (statusCompra) {
+      case 'PENDING':
+        return 'Aguardando confirmação';
+      case 'CONFIRMED':
+        return 'Pedido confirmado';
+      case 'IN_TRANSPORT':
+        return 'Em transporte';
+      case 'DELIVERED':
+        return 'Entregue';
+      default:
+        return 'Status inválido';
+    }
+  }
+
   formatarValor(valor: number) {
     return format(valor);
   }

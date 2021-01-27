@@ -3,29 +3,22 @@
 
   <mat-tab-group>
     <mat-tab label="Em andamento">
+      <div class="mt-4"></div>
       <div class="pedido" *ngFor="let compra of compras">
-        <h3>N. Pedido: #{{ compra.id }}</h3>
-
-        <h4>
-          Total: <strong>{{ formatarValor(compra.total) }}</strong>
-        </h4>
-
-        <div class="pedido__timeline">
-          <div class="horizontal timeline">
-            <div class="steps">
-              <div class="step current">
-                <span>Pedido Aprovado</span>
-              </div>
-              <div class="step">
-                <span>Em transporte</span>
-              </div>
-              <div class="step">
-                <span>Produto Entregue</span>
-              </div>
-            </div>
-
-            <div class="line"></div>
+        <div class="pedido__left">
+          <div class="pedido__icon">
+            <mat-icon>check</mat-icon>
           </div>
+          <div class="pedido__text">
+            <h3 class="pedido__text__title">Pedido #{{ compra.id }}</h3>
+            <strong class="pedido__text__status">{{
+              getStatusDescription(compra.status)
+            }}</strong>
+          </div>
+        </div>
+
+        <div class="pedido__right">
+          <button mat-button color="primary">Ver detalhes</button>
         </div>
       </div>
     </mat-tab>

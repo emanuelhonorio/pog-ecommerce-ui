@@ -21,7 +21,9 @@ export class ProfileComponent implements OnInit {
       [Validators.required, Validators.email],
     ],
   });
-  userLoading: boolean;
+  userFormLoading: boolean = false;
+  loading: boolean = false;
+  error: boolean = false;
 
   enderecos: Endereco[] = [];
   createEnderecoLoading: boolean = false;
@@ -39,26 +41,35 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initUser();
-    this.initAddresses();
+    this.init();
+  }
+
+  async init() {
+    this.loading = true;
+    try {
+      this.initUser();
+      await this.initAddresses();
+    } catch (err) {
+      this.error = true;
+      console.error(err);
+    }
+    this.loading = false;
   }
 
   async initUser() {
-    this.userLoading = true;
     try {
       this.user = await this.authService.getMe();
       this.initForm();
     } catch (err) {
-      console.error(err);
+      throw err;
     }
-    this.userLoading = false;
   }
 
   async initAddresses() {
     try {
       this.enderecos = <Endereco[]>await this.enderecosService.list();
     } catch (err) {
-      console.error(err);
+      throw err;
     }
   }
 
@@ -67,13 +78,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(form: NgForm) {
-    this.userLoading = true;
+    this.userFormLoading = true;
     this.userForm.disable();
     console.log('update profile: ', this.userForm.value);
     this.toastr.warning('Funcionalidade não implementada ainda');
     setTimeout(() => {
       this.userForm.enable();
-      this.userLoading = false;
+      this.userFormLoading = false;
     }, 3000);
   }
 

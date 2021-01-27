@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container my-5" *ngIf="!loading && !error">
   <mat-accordion>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
@@ -44,15 +44,15 @@
             class="mr-2"
             color="primary"
             type="submit"
-            [disabled]="userForm.invalid || userLoading"
+            [disabled]="userForm.invalid || userFormLoading"
           >
-            {{ userLoading ? "Salvando..." : "Salvar" }}
+            {{ userFormLoading ? "Salvando..." : "Salvar" }}
           </button>
           <button
             mat-flat-button
             (click)="initForm()"
             type="button"
-            [disabled]="userForm.invalid || userLoading"
+            [disabled]="userForm.invalid || userFormLoading"
           >
             Cancelar
           </button>
@@ -94,3 +94,13 @@
     ></app-form-enderecos>
   </mat-dialog-content>
 </ng-template>
+
+<div class="container my-5" *ngIf="loading">
+  <h2>Carregando informações...</h2>
+</div>
+
+<div class="container my-5" *ngIf="error">
+  <h2>
+    Erro ao carregar informações do servidor, tente novamente mais tarde...
+  </h2>
+</div>
