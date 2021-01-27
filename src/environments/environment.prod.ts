@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseApiUrl: 'http://localhost:8080'
+  baseApiUrl: 'https://pog-ecommerce-api.herokuapp.com',
 };
