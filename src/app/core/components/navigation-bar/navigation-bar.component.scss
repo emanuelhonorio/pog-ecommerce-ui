@@ -37,11 +37,18 @@
   input {
     color: #333;
     width: 100%;
-    padding-left: 5px;
+    padding: 7px 0;
+    padding-left: 10px;
     padding-right: 30px;
+    border: 1px solid #ddd;
 
     &:focus {
       outline-color: var(--primary);
+      border: 1px solid var(--primary);
+
+      ~ mat-icon {
+        color: var(--primary);
+      }
     }
   }
 
