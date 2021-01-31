@@ -1,3 +1,87 @@
 <div class="container my-5">
-  <h2>Manage pedidos</h2>
+  <form [formGroup]="filterPedidoForm" class="row filters">
+    <mat-form-field appearance="outline" class="col-md-2">
+      <mat-label>Data</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="data" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-2">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option>Nenhum</mat-option>
+        <mat-option value="PENDING">Pendente</mat-option>
+        <mat-option value="CONFIRMED">Confirmado</mat-option>
+        <mat-option value="IN_TRANSPORT">Em trânsito</mat-option>
+        <mat-option value="DELIVERED">Entregue</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-4">
+      <mat-label>N# Pedido</mat-label>
+      <input matInput formControlName="id" />
+    </mat-form-field>
+
+    <div class="col mt-sm-3 mt-md-0" style="align-self: center">
+      <button mat-stroked-button type="button" (click)="limparFiltros()">
+        Limpar filtros
+        <mat-icon>cleaning_services</mat-icon>
+      </button>
+    </div>
+  </form>
+
+  <div class="row my-5">
+    <div class="content col">
+      <mat-tab-group
+        animationDuration="500ms"
+        (selectedTabChange)="onSelectedTabChange($event)"
+      >
+        <!-- TAB ATIVOS-->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">error</mat-icon>
+            Ativos
+          </ng-template>
+          <div class="tab-content">
+            <app-table-pedidos-material
+              *ngIf="tabIndex === 0"
+              [compras]="compras"
+              [filter]="pedidoFilter"
+            ></app-table-pedidos-material>
+          </div>
+        </mat-tab>
+
+        <!-- TAB ENTREGUES-->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">check_circle</mat-icon>
+            Entregues
+          </ng-template>
+          <div class="tab-content">
+            <app-table-pedidos-material
+              *ngIf="tabIndex === 1"
+              [compras]="compras"
+              [filter]="pedidoFilter"
+            ></app-table-pedidos-material>
+          </div>
+        </mat-tab>
+
+        <!-- TAB EXCLUÍDOS-->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">delete</mat-icon>
+            Excluídos
+          </ng-template>
+          <div class="tab-content">
+            <app-table-pedidos-material
+              *ngIf="tabIndex === 2"
+              [compras]="compras"
+              [filter]="pedidoFilter"
+            ></app-table-pedidos-material>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
 </div>

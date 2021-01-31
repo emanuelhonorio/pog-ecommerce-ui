@@ -1,11 +1,22 @@
 header {
-  margin: 20px 0;
+  ::ng-deep .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+  }
+  padding: 40px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+  flex-wrap: wrap;
+
+  gap: 20px;
+
+  > form {
+    flex-basis: 600px;
+  }
 }
 
-.nome {
-  min-width: 400px;
+.box {
+  border: 1px solid #ddd;
+  background-color: #fff;
 }

@@ -1,0 +1,45 @@
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.expanded-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-expanded-row {
+  background: #efefef;
+}
+
+.expanded-element-row td {
+  border-bottom-width: 0;
+}
+
+.expanded-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+th,
+td {
+  padding-right: 20px !important;
+}
+
+.td-status {
+  padding: 10px 0;
+  ::ng-deep .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+  }
+}
+
+.btn-expand {
+  border: 1px solid #ddd;
+  display: inline-flex;
+  cursor: pointer;
+  border-radius: 15px;
+  -webkit-user-select: none;
+}

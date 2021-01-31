@@ -1,6 +1,10 @@
-<div class="container">
+<div class="container my-5">
   <header>
-    <button mat-raised-button color="primary" (click)="createCategoriaDialog()">Adicionar categoria</button>
+    <button mat-raised-button color="primary" (click)="createCategoriaDialog()">
+      Adicionar categoria
+    </button>
   </header>
-  <app-table-categorias [categorias]="categorias"></app-table-categorias>
+  <div class="box">
+    <app-table-categorias [categorias]="categorias"></app-table-categorias>
+  </div>
 </div>

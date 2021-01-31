@@ -1,0 +1,137 @@
+$bg-blue: #dce1ff;
+$color-blue: #6a64d9;
+
+$bg-yellow: #fffcdc;
+$color-yellow: #d1d964;
+
+$bg-green: #cbffe4;
+$color-green: #248552;
+
+.component {
+  position: relative;
+  border-radius: 100px;
+  background-color: #dce1ff;
+  padding: 10px 15px;
+  font-weight: 500;
+
+  &__main {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-user-select: none;
+
+    &__arrow,
+    &__value {
+      color: $color-blue;
+    }
+  }
+
+  &__arrow {
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    z-index: 10001;
+    position: absolute;
+    padding-top: 13px;
+    border-top: none;
+    border: 2px solid #6a64d9;
+    background-color: #dce1ff;
+    width: 100%;
+    top: 70%;
+    left: 0px;
+    right: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    &__option {
+      color: #6a64d9;
+      font-weight: 500;
+      padding: 10px 15px;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+
+      &:hover {
+        background-color: darken($bg-blue, 10%);
+      }
+    }
+  }
+}
+
+.component--yellow {
+  background-color: $bg-yellow;
+
+  .component__dropdown {
+    background-color: $bg-yellow;
+    border: 2px solid $color-yellow;
+    border-top: none;
+
+    &__option {
+      color: $color-yellow;
+
+      &:hover {
+        background-color: darken($bg-yellow, 10%);
+      }
+    }
+  }
+
+  .component__main__value,
+  .component__main__arrow {
+    color: $color-yellow;
+  }
+}
+
+.component--blue {
+  background-color: $bg-blue;
+
+  .component__dropdown {
+    background-color: $bg-blue;
+    border: 2px solid $color-blue;
+    border-top: none;
+
+    &__option {
+      color: $color-blue;
+
+      &:hover {
+        background-color: darken($bg-blue, 10%);
+      }
+    }
+  }
+
+  .component__main__value,
+  .component__main__arrow {
+    color: $color-blue;
+  }
+}
+
+.component--green {
+  background-color: $bg-green;
+
+  .component__dropdown {
+    background-color: $bg-green;
+    border: 2px solid $color-green;
+    border-top: none;
+
+    &__option {
+      color: $color-green;
+
+      &:hover {
+        background-color: darken($bg-green, 10%);
+      }
+    }
+  }
+
+  .component__main__value,
+  .component__main__arrow {
+    color: $color-green;
+  }
+}
+
+.hidden {
+  display: none;
+}

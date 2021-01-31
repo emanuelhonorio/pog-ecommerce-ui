@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const materialComponents = [
   MatBadgeModule,
@@ -25,6 +26,7 @@ const materialComponents = [
   MatSidenavModule,
   MatListModule,
   MatButtonToggleModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({

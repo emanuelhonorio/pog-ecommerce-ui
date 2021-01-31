@@ -12,7 +12,7 @@
 <div class="navbar">
   <div class="container navbar-container">
     <div class="navbar__left">
-      <button mat-icon-button (click)="toggle.emit(null)">
+      <button mat-icon-button (click)="toggle.emit(null)" *ngIf="user?.admin">
         <mat-icon>menu</mat-icon>
       </button>
       <img src="assets/logo.png" alt="Logo" class="logo" routerLink="/" />

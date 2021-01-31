@@ -1,14 +1,68 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Compra, CompraFilter } from 'src/app/core/models/api-models';
+import { ComprasService } from 'src/app/core/services/compras.service';
 
 @Component({
   templateUrl: './manage-pedidos.component.html',
-  styleUrls: ['./manage-pedidos.component.scss']
+  styleUrls: ['./manage-pedidos.component.scss'],
 })
 export class ManagePedidosComponent implements OnInit {
+  compras: Compra[] = [];
 
-  constructor() { }
+  loading: boolean = true;
+  error: boolean = false;
+
+  filterPedidoForm = this.fb.group({
+    id: [null],
+    data: [],
+    status: [null],
+    entregue: [false],
+    deleted: [false],
+  });
+
+  pedidoFilter: CompraFilter = this.filterPedidoForm.value || {};
+
+  tabIndex: number = 0;
+
+  constructor(private compraService: ComprasService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.loadCompras();
+
+    this.filterPedidoForm.valueChanges.subscribe((values) => {
+      this.pedidoFilter = values;
+      this.loadCompras();
+    });
   }
 
+  async loadCompras() {
+    this.loading = true;
+    try {
+      this.compras = <Compra[]>(
+        (<any>await this.compraService.listOfAllUsers(this.pedidoFilter))
+          .content
+      );
+    } catch (err) {
+      this.error = true;
+      console.error(err);
+    }
+    this.loading = false;
+  }
+
+  limparFiltros() {
+    this.filterPedidoForm.reset();
+  }
+
+  onSelectedTabChange(event) {
+    if (event.index === 0) {
+      this.filterPedidoForm.patchValue({ entregue: false, deleted: false });
+    } else if (event.index === 1) {
+      this.filterPedidoForm.patchValue({ entregue: true, deleted: false });
+    } else if (event.index === 2) {
+      this.filterPedidoForm.patchValue({ entregue: null, deleted: true });
+    }
+    this.tabIndex = event.index;
+  }
 }

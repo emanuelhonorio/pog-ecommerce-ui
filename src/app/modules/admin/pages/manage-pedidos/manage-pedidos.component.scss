@@ -1,0 +1,22 @@
+.filters {
+  padding: 30px 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+mat-form-field {
+  ::ng-deep .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+  }
+}
+
+.tab-content {
+  margin-top: 20px;
+  margin-bottom: 120px;
+}

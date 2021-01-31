@@ -1,9 +1,10 @@
-<div class="container mt-5">
-  <header>
-    <form (input)="onFormInput($event)">
-      <mat-form-field class="nome">
+<div class="container my-5">
+  <header class="box">
+    <form (input)="onFormInput($event)" spellcheck="false" autocomplete="off">
+      <mat-form-field class="w-100">
         <mat-label>Filtrar por nome</mat-label>
         <input
+          class="w-100"
           matInput
           type="text"
           [(ngModel)]="produtoFilter.nome"
@@ -32,10 +33,12 @@
     </button>
   </header>
 
-  <app-table-produtos
-    [produtos]="produtos"
-    (delete)="handleDeleteProduto($event)"
-    (edit)="handleEditProduto($event)"
-    (manageStock)="handleManageStock($event)"
-  ></app-table-produtos>
+  <div class="box mt-5">
+    <app-table-produtos
+      [produtos]="produtos"
+      (delete)="handleDeleteProduto($event)"
+      (edit)="handleEditProduto($event)"
+      (manageStock)="handleManageStock($event)"
+    ></app-table-produtos>
+  </div>
 </div>

@@ -1,58 +1,60 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <h2>Administrador</h2>
-      </mat-toolbar-row>
-    </mat-toolbar>
+    <ng-template [ngIf]="user?.admin">
+      <mat-toolbar>
+        <mat-toolbar-row>
+          <h2>Administrador</h2>
+        </mat-toolbar-row>
+      </mat-toolbar>
 
-    <mat-nav-list>
-      <a
-        mat-list-item
-        (click)="sidenav.close()"
-        routerLink="/"
-        routerLinkActive="list-item-active"
-      >
-        <mat-icon matListIcon>dashboard</mat-icon>
-        Dashboard
-      </a>
-      <a
-        mat-list-item
-        (click)="sidenav.close()"
-        routerLink="/admin/categorias"
-        routerLinkActive="list-item-active"
-      >
-        <mat-icon matListIcon>category</mat-icon>
-        Gerenciar categorias
-      </a>
-      <a
-        mat-list-item
-        (click)="sidenav.close()"
-        routerLink="/admin/produtos"
-        routerLinkActive="list-item-active"
-      >
-        <mat-icon matListIcon>production_quantity_limits</mat-icon>
-        Gerenciar produtos
-      </a>
-      <a
-        mat-list-item
-        (click)="sidenav.close()"
-        routerLink="/admin/pedidos"
-        routerLinkActive="list-item-active"
-      >
-        <mat-icon matListIcon>local_shipping</mat-icon>
-        Gerenciar pedidos
-      </a>
-      <!--a 
-        mat-list-item
-        (click)="sidenav.close()"
-        routerLink="/admin/estoque"
-        routerLinkActive="list-item-active">
-        <mat-icon matListIcon>production_quantity_limits</mat-icon>
-        Gerenciar estoque
-      </a-->
-      <mat-divider></mat-divider>
-    </mat-nav-list>
+      <mat-nav-list>
+        <a
+          mat-list-item
+          (click)="sidenav.close()"
+          routerLink="/"
+          routerLinkActive="list-item-active"
+        >
+          <mat-icon matListIcon>dashboard</mat-icon>
+          Dashboard
+        </a>
+        <a
+          mat-list-item
+          (click)="sidenav.close()"
+          routerLink="/admin/categorias"
+          routerLinkActive="list-item-active"
+        >
+          <mat-icon matListIcon>category</mat-icon>
+          Gerenciar categorias
+        </a>
+        <a
+          mat-list-item
+          (click)="sidenav.close()"
+          routerLink="/admin/produtos"
+          routerLinkActive="list-item-active"
+        >
+          <mat-icon matListIcon>production_quantity_limits</mat-icon>
+          Gerenciar produtos
+        </a>
+        <a
+          mat-list-item
+          (click)="sidenav.close()"
+          routerLink="/admin/pedidos"
+          routerLinkActive="list-item-active"
+        >
+          <mat-icon matListIcon>local_shipping</mat-icon>
+          Gerenciar pedidos
+        </a>
+        <!--a 
+          mat-list-item
+          (click)="sidenav.close()"
+          routerLink="/admin/estoque"
+          routerLinkActive="list-item-active">
+          <mat-icon matListIcon>production_quantity_limits</mat-icon>
+          Gerenciar estoque
+        </a-->
+        <mat-divider></mat-divider>
+      </mat-nav-list>
+    </ng-template>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-navigation-bar (toggle)="sidenav.toggle()"></app-navigation-bar>

@@ -27,6 +27,14 @@ export interface ProdutoFilter {
   size?: number;
 }
 
+export interface CompraFilter {
+  id?: number;
+  status?: 'PENDING' | 'CONFIRMED' | 'IN_TRANSPORT' | 'DELIVERED';
+  data?: Date;
+  deleted?: boolean;
+  entregue?: boolean;
+}
+
 export interface Compra {
   id?: number;
   total?: number;
@@ -34,6 +42,9 @@ export interface Compra {
   usuario?: Usuario;
   status: 'PENDING' | 'CONFIRMED' | 'IN_TRANSPORT' | 'DELIVERED';
   enderecoDeEntrega?: Endereco;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
 }
 
 export interface Endereco {

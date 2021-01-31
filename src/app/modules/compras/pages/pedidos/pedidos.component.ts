@@ -18,7 +18,7 @@ export class PedidosComponent implements OnInit {
   }
 
   async initPedidos() {
-    this.compras = <Compra[]>await this.comprasService.list();
+    this.compras = <Compra[]>(<any>await this.comprasService.list({})).content;
 
     console.log('compras', this.compras);
   }

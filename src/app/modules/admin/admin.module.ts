@@ -30,9 +30,18 @@ import { TableEstoquesComponent } from './components/table-estoques/table-estoqu
 import { SaveProdutosComponent } from './pages/save-produtos/save-produtos.component';
 import { FotosFieldComponent } from './components/fotos-field/fotos-field.component';
 import { ManagePedidosComponent } from './pages/manage-pedidos/manage-pedidos.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { TablePedidosComponent } from './components/table-pedidos/table-pedidos.component';
+import { TableItensPedidoComponent } from './components/table-itens-pedido/table-itens-pedido.component';
+import { TablePedidosMaterialComponent } from './components/table-pedidos-material/table-pedidos-material.component';
+import { TableItensPedidoMaterialComponent } from './components/table-itens-pedido-material/table-itens-pedido-material.component';
+import { DropdownUpdateStatusPedidoComponent } from './components/dropdown-update-status-pedido/dropdown-update-status-pedido.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
+    ClickOutsideDirective,
     ManageCategoriasComponent,
     TableCategoriasComponent,
     DialogCreateCategoriasComponent,
@@ -48,6 +57,11 @@ import { ManagePedidosComponent } from './pages/manage-pedidos/manage-pedidos.co
     SaveProdutosComponent,
     FotosFieldComponent,
     ManagePedidosComponent,
+    TablePedidosComponent,
+    TableItensPedidoComponent,
+    TablePedidosMaterialComponent,
+    TableItensPedidoMaterialComponent,
+    DropdownUpdateStatusPedidoComponent,
   ],
   imports: [
     CommonModule,
@@ -56,8 +70,10 @@ import { ManagePedidosComponent } from './pages/manage-pedidos/manage-pedidos.co
     ReactiveFormsModule,
     MatTableModule,
     MatInputModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatTabsModule,
     MatDialogModule,
     MatMenuModule,
     MatCardModule,

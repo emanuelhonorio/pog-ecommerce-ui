@@ -1,0 +1,27 @@
+<div class="component component--{{ statusMap[selectedStatus].variantClass }}">
+  <div
+    class="component__main"
+    (click)="toggleOpen()"
+    (clickOutside)="isOpen = false"
+  >
+    <div class="component__main__value">
+      {{ statusMap[selectedStatus].description }}
+    </div>
+
+    <mat-icon class="component__main__arrow">{{
+      isOpen ? "arrow_drop_up" : "arrow_drop_down"
+    }}</mat-icon>
+  </div>
+
+  <div class="component__dropdown" [class.hidden]="!isOpen">
+    <ng-template ngFor let-status [ngForOf]="statusMap | keyvalue">
+      <div
+        *ngIf="status.key != selectedStatus"
+        class="component__dropdown__option"
+        (click)="onSelectStatus(status)"
+      >
+        {{ status.value.description }}
+      </div>
+    </ng-template>
+  </div>
+</div>

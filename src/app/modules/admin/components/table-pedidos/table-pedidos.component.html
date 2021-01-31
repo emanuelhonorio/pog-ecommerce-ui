@@ -1,0 +1,59 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Criado</th>
+      <th>Cliente</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>123</td>
+      <td>2 minutos atrás</td>
+      <td>Emanuel Honorio</td>
+      <td>$383</td>
+      <td class="td-status">
+        <mat-form-field appearance="outline" class="select-status">
+          <mat-label>Favorite food</mat-label>
+          <mat-select>
+            <mat-option> Pending </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td style="justify-content: center">
+        <div class="btn-expand">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+      </td>
+    </tr>
+    <tr class="expanded">
+      <td>123</td>
+      <td>2 minutos atrás</td>
+      <td>Emanuel Honorio</td>
+      <td>$383</td>
+      <td class="td-status">
+        <mat-form-field appearance="outline" class="select-status">
+          <mat-label>Favorite food</mat-label>
+          <mat-select>
+            <mat-option> Pending </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td style="justify-content: center">
+        <div class="btn-expand">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+      </td>
+
+      <td class="expanded-row-content">
+        <div class="w-100">
+          <app-table-itens-pedido></app-table-itens-pedido>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
