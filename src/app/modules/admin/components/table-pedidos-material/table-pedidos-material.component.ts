@@ -110,8 +110,11 @@ export class TablePedidosMaterialComponent implements OnInit {
     }
   }
 
-  formatDateFromNow(date: Date) {
-    return this.formatDateService.formatDateFromNow(date);
+  formatDateFromNow(date: Date): string {
+    if (date) {
+      return this.formatDateService.formatDateFromNow(date);
+    }
+    return '';
   }
 
   onExpand(element: Compra) {

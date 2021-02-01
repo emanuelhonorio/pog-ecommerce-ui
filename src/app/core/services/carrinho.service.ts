@@ -74,6 +74,8 @@ export class CarrinhoService {
       carrinhoParsed.total += item.subTotal;
     }
 
+    console.log(this.carrinho);
+
     // triggering the set
     this.carrinho = carrinhoParsed;
   }
@@ -89,27 +91,23 @@ export class CarrinhoService {
   }
 
   incAmmount(itemId: number) {
-    const item = this.carrinho.items.find((i) => i.id === itemId);
-
-    if (!item) return;
-
-    item.quantidade++;
-    item.subTotal = this.calculaSubtotal(item);
-    this.carrinho.total += this.calculaValorUnidade(item);
-    // triggering the set
-    this.carrinho = { ...this.carrinho };
+    this.changeAmmount(itemId, 1);
   }
 
   decAmmount(itemId: number) {
+    this.changeAmmount(itemId, -1);
+  }
+
+  changeAmmount(itemId: number, quantity: number) {
     const item = this.carrinho.items.find((i) => i.id === itemId);
 
     if (!item) return;
 
-    if (item.quantidade === 1) return this.removeItem(itemId);
+    if (item.quantidade + quantity <= 0) return this.removeItem(itemId);
 
-    item.quantidade--;
+    item.quantidade += quantity;
     item.subTotal = this.calculaSubtotal(item);
-    this.carrinho.total -= this.calculaValorUnidade(item);
+    this.carrinho.total += this.calculaValorUnidade(item);
     // triggering the set
     this.carrinho = { ...this.carrinho };
   }
@@ -119,7 +117,10 @@ export class CarrinhoService {
 
     // PRODUCT IS IN THE CART
     if (itemFoundIdx !== -1) {
-      return this.incAmmount(this.carrinho.items[itemFoundIdx].id);
+      return this.changeAmmount(
+        this.carrinho.items[itemFoundIdx].id,
+        item.quantidade
+      );
     }
 
     // PRODUCT IS NOT IN THE CART

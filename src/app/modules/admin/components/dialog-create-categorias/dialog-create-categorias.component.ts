@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
   name: string;
+  isUpdating: boolean;
 }
 
 @Component({

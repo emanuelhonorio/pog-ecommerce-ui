@@ -12,8 +12,10 @@ import { ProdutosService } from 'src/app/core/services/produtos.service';
 })
 export class ProdutosPageComponent implements OnInit, OnDestroy {
   public produtos = [];
-  public totalPages: number;
-  public itensPerPage: number = 10;
+  public totalElements: number;
+  public itensPerPage: number = 8;
+
+  public page: number = 0;
 
   public produtoFilter: ProdutoFilter = {};
   public produtoFilter$: Subscription;
@@ -39,10 +41,13 @@ export class ProdutosPageComponent implements OnInit, OnDestroy {
   }
 
   async loadProdutos() {
-    const { content, totalPages } = await this.produtoService.list(
-      this.produtoFilter
+    const { content, totalElements } = await this.produtoService.list(
+      this.produtoFilter,
+      this.page,
+      this.itensPerPage
     );
-    this.totalPages = totalPages;
+
+    this.totalElements = totalElements;
     this.produtos = content;
     this.produtos = this.produtoService.wrapInfo(this.produtos);
   }
@@ -65,10 +70,7 @@ export class ProdutosPageComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(event) {
-    this.produtoFilterStore.produtoFilter = {
-      ...this.produtoFilterStore.produtoFilter,
-      page: event.pageIndex,
-      size: event.pageSize,
-    };
+    this.page = event.pageIndex;
+    this.loadProdutos();
   }
 }

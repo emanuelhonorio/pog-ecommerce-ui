@@ -49,6 +49,7 @@
               [compras]="compras"
               [filter]="pedidoFilter"
             ></app-table-pedidos-material>
+            <p *ngIf="error" style="color: red">Erro ao carregar pedidos</p>
           </div>
         </mat-tab>
 
@@ -64,6 +65,7 @@
               [compras]="compras"
               [filter]="pedidoFilter"
             ></app-table-pedidos-material>
+            <p *ngIf="error" style="color: red">Erro ao carregar pedidos</p>
           </div>
         </mat-tab>
 
@@ -79,6 +81,7 @@
               [compras]="compras"
               [filter]="pedidoFilter"
             ></app-table-pedidos-material>
+            <p *ngIf="error" style="color: red">Erro ao carregar pedidos</p>
           </div>
         </mat-tab>
       </mat-tab-group>

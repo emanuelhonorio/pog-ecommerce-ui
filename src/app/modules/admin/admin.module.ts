@@ -38,6 +38,7 @@ import { TableItensPedidoMaterialComponent } from './components/table-itens-pedi
 import { DropdownUpdateStatusPedidoComponent } from './components/dropdown-update-status-pedido/dropdown-update-status-pedido.component';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatButtonModule,
     MatTabsModule,
+    MatPaginatorModule,
     MatDialogModule,
     MatMenuModule,
     MatCardModule,

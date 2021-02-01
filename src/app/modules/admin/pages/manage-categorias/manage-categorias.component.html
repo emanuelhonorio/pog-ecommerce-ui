@@ -1,10 +1,20 @@
 <div class="container my-5">
   <header>
-    <button mat-raised-button color="primary" (click)="createCategoriaDialog()">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="createCategoriaDialog(null)"
+    >
       Adicionar categoria
     </button>
   </header>
   <div class="box">
-    <app-table-categorias [categorias]="categorias"></app-table-categorias>
+    <app-table-categorias
+      [categorias]="categorias"
+      (edit)="handleEdit($event)"
+      (delete)="handleDelete($event)"
+    ></app-table-categorias>
+
+    <p *ngIf="error" style="color: red">Falha ao carregar categorias</p>
   </div>
 </div>

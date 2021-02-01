@@ -22,4 +22,16 @@ export class CategoriasService {
       .post(`${this.baseApiUrl}/categorias`, categoria)
       .toPromise();
   }
+
+  delete(categoriaId: number) {
+    return this.http
+      .delete(`${this.baseApiUrl}/categorias/${categoriaId}`)
+      .toPromise();
+  }
+
+  update(categoriaId: number, categoria: Categoria) {
+    return this.http
+      .put(`${this.baseApiUrl}/categorias/${categoriaId}`, categoria)
+      .toPromise();
+  }
 }

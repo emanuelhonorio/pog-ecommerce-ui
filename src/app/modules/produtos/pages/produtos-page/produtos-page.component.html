@@ -29,11 +29,11 @@
         </mat-card-content>
         <mat-card-actions>
           <mat-paginator
-            [length]="totalPages"
-            [pageSize]="1"
+            [length]="totalElements"
+            [pageSize]="itensPerPage"
             hidePageSize
             showFirstLastButtons
-            [pageSizeOptions]="[5]"
+            [pageSizeOptions]="[5, 10]"
             (page)="onPageChange($event)"
           >
           </mat-paginator>

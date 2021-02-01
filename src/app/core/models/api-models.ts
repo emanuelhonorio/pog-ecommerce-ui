@@ -23,8 +23,6 @@ export interface ProdutoFilter {
   categorias?: number[];
   valorDe?: number;
   valorAte?: number;
-  page?: number;
-  size?: number;
 }
 
 export interface CompraFilter {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { Compra, CompraFilter } from 'src/app/core/models/api-models';
 import { ComprasService } from 'src/app/core/services/compras.service';
 
@@ -16,7 +15,7 @@ export class ManagePedidosComponent implements OnInit {
 
   filterPedidoForm = this.fb.group({
     id: [null],
-    data: [],
+    data: [null],
     status: [null],
     entregue: [false],
     deleted: [false],
@@ -38,6 +37,7 @@ export class ManagePedidosComponent implements OnInit {
   }
 
   async loadCompras() {
+    this.error = false;
     this.loading = true;
     try {
       this.compras = <Compra[]>(
@@ -52,10 +52,11 @@ export class ManagePedidosComponent implements OnInit {
   }
 
   limparFiltros() {
-    this.filterPedidoForm.reset();
+    this.filterPedidoForm.patchValue({ id: null, data: null, status: null });
   }
 
   onSelectedTabChange(event) {
+    this.compras = [];
     if (event.index === 0) {
       this.filterPedidoForm.patchValue({ entregue: false, deleted: false });
     } else if (event.index === 1) {

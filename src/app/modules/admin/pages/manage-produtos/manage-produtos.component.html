@@ -40,5 +40,13 @@
       (edit)="handleEditProduto($event)"
       (manageStock)="handleManageStock($event)"
     ></app-table-produtos>
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="itensPerPage"
+      hidePageSize
+      showFirstLastButtons
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
   </div>
 </div>

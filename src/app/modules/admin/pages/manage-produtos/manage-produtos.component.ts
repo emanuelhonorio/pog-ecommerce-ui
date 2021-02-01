@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ProdutosService } from 'src/app/core/services/produtos.service';
 
 @Component({
@@ -15,10 +15,15 @@ export class ManageProdutosComponent implements OnInit {
     nome: '',
   };
 
+  totalElements: number = 0;
+  itensPerPage: number = 6;
+
+  page: number = 0;
+
   constructor(
     private produtosService: ProdutosService,
     private router: Router,
-    private fb: FormBuilder,
+    private toastr: ToastrService,
     private route: ActivatedRoute
   ) {}
 
@@ -27,27 +32,34 @@ export class ManageProdutosComponent implements OnInit {
   }
 
   onFormInput(event) {
-    this.filtrar();
+    this.loadProdutos();
   }
 
   clearField(fieldName) {
     if (this.produtoFilter[fieldName]) this.produtoFilter[fieldName] = '';
-    this.filtrar();
-  }
-
-  async filtrar() {
-    this.produtos = (
-      await this.produtosService.list(this.produtoFilter)
-    ).content;
+    this.loadProdutos();
   }
 
   async loadProdutos() {
-    this.produtos = (await this.produtosService.list({})).content;
+    const { content, totalElements } = await this.produtosService.list(
+      this.produtoFilter,
+      this.page,
+      this.itensPerPage
+    );
+
+    this.totalElements = totalElements;
+    this.produtos = content;
   }
 
   async handleDeleteProduto(produtoId) {
-    await this.produtosService.delete(produtoId);
-    this.loadProdutos();
+    try {
+      await this.produtosService.delete(produtoId);
+      this.loadProdutos();
+      this.toastr.success('Item removido com sucesso');
+    } catch (ex) {
+      console.error(ex);
+      this.toastr.error('Erro ao remover produto');
+    }
   }
 
   async handleEditProduto(produtoId) {
@@ -56,5 +68,10 @@ export class ManageProdutosComponent implements OnInit {
 
   async handleManageStock(produtoId) {
     this.router.navigate([produtoId, 'estoque'], { relativeTo: this.route });
+  }
+
+  onPageChange(event) {
+    this.page = event.pageIndex;
+    this.loadProdutos();
   }
 }

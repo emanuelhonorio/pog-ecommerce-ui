@@ -13,7 +13,11 @@ export class ProdutosService {
 
   constructor(private http: HttpClient) {}
 
-  list(produtoFilter: ProdutoFilter): Promise<any> {
+  list(
+    produtoFilter: ProdutoFilter,
+    page: number = 0,
+    size: number = 10
+  ): Promise<any> {
     if (!produtoFilter) throw Error('produtoFilter is required');
 
     let params = new HttpParams();
@@ -38,12 +42,12 @@ export class ProdutosService {
       params = params.append('categorias', produtoFilter.categorias.join(','));
     }
 
-    if (produtoFilter?.page) {
-      params = params.append('page', '' + produtoFilter.page);
+    if (page != null && page != undefined) {
+      params = params.append('page', '' + page);
     }
 
-    if (produtoFilter?.size) {
-      params = params.append('size', '' + produtoFilter.size);
+    if (size != null && size != undefined) {
+      params = params.append('size', '' + size);
     }
 
     return <Promise<any>>(
