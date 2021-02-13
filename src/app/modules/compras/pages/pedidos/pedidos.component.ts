@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Compra } from 'src/app/core/models/api-models';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Compra, StatusCompraEnum } from 'src/app/core/models/api-models';
 import { ComprasService } from 'src/app/core/services/compras.service';
 
 import { format } from '../../../../shared/util/formatter';
@@ -11,10 +13,20 @@ import { format } from '../../../../shared/util/formatter';
 export class PedidosComponent implements OnInit {
   compras: Compra[] = [];
 
-  constructor(private comprasService: ComprasService) {}
+  constructor(
+    private comprasService: ComprasService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.initPedidos();
+
+    if (this.route.snapshot.queryParams['success']) {
+      this.toastr.success(
+        'Pagamento realizado com sucesso, acompanhe o pedido por aqui'
+      );
+    }
   }
 
   async initPedidos() {
@@ -23,13 +35,15 @@ export class PedidosComponent implements OnInit {
     console.log('compras', this.compras);
   }
 
-  getStatusDescription(statusCompra: string) {
+  getStatusDescription(statusCompra: keyof typeof StatusCompraEnum) {
     switch (statusCompra) {
       case 'PENDING':
         return 'Aguardando confirmação';
-      case 'CONFIRMED':
+      case 'DONE':
         return 'Pedido confirmado';
-      case 'IN_TRANSPORT':
+      case 'PREPARING':
+        return 'Preparando pedido';
+      case 'IN_TRANSIT':
         return 'Em transporte';
       case 'DELIVERED':
         return 'Entregue';

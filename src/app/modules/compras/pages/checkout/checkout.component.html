@@ -48,6 +48,11 @@
           <dd class="free"><mat-icon>local_shipping</mat-icon> Frete Grátis</dd>
         </section>
 
+        <section class="section-frete mt-5">
+          <h2>Opção de pagamento</h2>
+          <app-payment-option [(ngModel)]="modo"></app-payment-option>
+        </section>
+
         <section class="section-total mt-5">
           <h2 class="total">
             Total: <span>{{ formatarValor(carrinho.total) }}</span>

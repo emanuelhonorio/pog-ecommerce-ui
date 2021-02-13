@@ -107,7 +107,7 @@ export class CarrinhoService {
 
     item.quantidade += quantity;
     item.subTotal = this.calculaSubtotal(item);
-    this.carrinho.total += this.calculaValorUnidade(item);
+    this.carrinho.total += this.calculaValorUnidade(item) * quantity;
     // triggering the set
     this.carrinho = { ...this.carrinho };
   }

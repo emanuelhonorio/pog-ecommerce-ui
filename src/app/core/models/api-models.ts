@@ -25,12 +25,26 @@ export interface ProdutoFilter {
   valorAte?: number;
 }
 
+export enum StatusCompraEnum {
+  PENDING = 'PENDING',
+  DONE = 'DONE',
+  PREPARING = 'PREPARING',
+  IN_TRANSIT = 'IN_TRANSIT',
+  DELIVERED = 'DELIVERED',
+}
+
 export interface CompraFilter {
   id?: number;
-  status?: 'PENDING' | 'CONFIRMED' | 'IN_TRANSPORT' | 'DELIVERED';
+  status?: keyof typeof StatusCompraEnum;
   data?: Date;
   deleted?: boolean;
   entregue?: boolean;
+}
+
+export enum TipoPagamentoEnum {
+  CARTAO = 'CARTAO',
+  A_VISTA = 'A_VISTA',
+  CARTAO_PRESENCIAL = 'CARTAO_PRESENCIAL',
 }
 
 export interface Compra {
@@ -38,8 +52,10 @@ export interface Compra {
   total?: number;
   items?: ItemCompra[];
   usuario?: Usuario;
-  status: 'PENDING' | 'CONFIRMED' | 'IN_TRANSPORT' | 'DELIVERED';
+  status: keyof typeof StatusCompraEnum;
   enderecoDeEntrega?: Endereco;
+  tipoPagamento?: keyof typeof TipoPagamentoEnum;
+  trocoPara?: number;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -115,6 +131,8 @@ export interface Usuario {
 
 export interface CompraDTO {
   enderecoId?: number;
+  tipoPagamento?: keyof typeof TipoPagamentoEnum;
+  trocoPara?: number;
   itens?: ItemCompraDTO[];
 }
 

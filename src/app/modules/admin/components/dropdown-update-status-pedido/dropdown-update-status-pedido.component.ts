@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { StatusCompraEnum } from 'src/app/core/models/api-models';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -9,8 +10,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 })
 export class DropdownUpdateStatusPedidoComponent implements OnInit {
   @Input()
-  selectedStatus: 'PENDING' | 'CONFIRMED' | 'IN_TRANSPORT' | 'DELIVERED' =
-    'PENDING';
+  selectedStatus: StatusCompraEnum;
 
   @Output()
   select = new EventEmitter();
@@ -20,11 +20,15 @@ export class DropdownUpdateStatusPedidoComponent implements OnInit {
       description: 'Entregue',
       variantClass: 'green',
     },
-    IN_TRANSPORT: {
+    IN_TRANSIT: {
       description: 'Em trânsito',
       variantClass: 'blue',
     },
-    CONFIRMED: {
+    PREPARING: {
+      description: 'Preparando pedido',
+      variantClass: 'yellow',
+    },
+    DONE: {
       description: 'Confirmado',
       variantClass: 'green',
     },

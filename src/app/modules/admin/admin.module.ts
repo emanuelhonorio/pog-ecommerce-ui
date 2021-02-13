@@ -39,6 +39,7 @@ import { DropdownUpdateStatusPedidoComponent } from './components/dropdown-updat
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     TablePedidosMaterialComponent,
     TableItensPedidoMaterialComponent,
     DropdownUpdateStatusPedidoComponent,
+    DashboardComponent,
   ],
   imports: [
     CommonModule,

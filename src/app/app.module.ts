@@ -19,6 +19,7 @@ import { ComprasModule } from './modules/compras/compras.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

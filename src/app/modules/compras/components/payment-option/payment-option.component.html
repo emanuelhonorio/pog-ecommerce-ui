@@ -1,0 +1,43 @@
+<div class="component">
+  <div
+    class="option"
+    [class.selected]="_value?.modoDePagamento == 'A_VISTA'"
+    (click)="select(getTipoPagamentoEnum.A_VISTA)"
+  >
+    <mat-icon>local_atm</mat-icon>
+    <span>A vista</span>
+  </div>
+  <div
+    class="option"
+    [class.selected]="_value?.modoDePagamento == 'CARTAO'"
+    (click)="select(getTipoPagamentoEnum.CARTAO)"
+  >
+    <mat-icon>payment</mat-icon>
+    <span>Cartão</span>
+  </div>
+  <div
+    class="option"
+    [class.selected]="_value?.modoDePagamento == 'CARTAO_PRESENCIAL'"
+    (click)="select(getTipoPagamentoEnum.CARTAO_PRESENCIAL)"
+  >
+    <mat-icon>payment</mat-icon>
+    <span>Pagar na hora com o cartão</span>
+  </div>
+</div>
+
+<div class="mt-5" *ngIf="_value?.modoDePagamento == 'A_VISTA'">
+  <h2>Troco para</h2>
+
+  <form class="example-form">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Troco Para</mat-label>
+      <input
+        type="number"
+        #troco
+        matInput
+        (input)="onInputTroco(troco.value)"
+        placeholder="Informe o valor..."
+      />
+    </mat-form-field>
+  </form>
+</div>

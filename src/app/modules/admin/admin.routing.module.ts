@@ -6,8 +6,10 @@ import { ManageProdutosEstoqueComponent } from './pages/manage-produtos-estoque/
 import { ManageProdutosComponent } from './pages/manage-produtos/manage-produtos.component';
 import { ManagePedidosComponent } from './pages/manage-pedidos/manage-pedidos.component';
 import { SaveProdutosComponent } from './pages/save-produtos/save-produtos.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'categorias', component: ManageCategoriasComponent },
   { path: 'produtos', component: ManageProdutosComponent },
   { path: 'pedidos', component: ManagePedidosComponent },

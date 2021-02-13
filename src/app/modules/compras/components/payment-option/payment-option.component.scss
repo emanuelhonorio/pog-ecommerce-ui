@@ -1,0 +1,30 @@
+.component {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  cursor: pointer;
+  border: 1px dashed #ddd;
+
+  mat-icon {
+    margin-right: 10px;
+  }
+
+  &:hover {
+    background: #f4f4f4;
+  }
+
+  &.selected {
+    background: #f4f4f4;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    mat-icon {
+      color: var(--primary);
+    }
+  }
+}
